@@ -1,0 +1,82 @@
+<div class="login-container">
+
+  <!-- LEFT -->
+  <div class="login-left">
+
+    <!-- 🔥 BIG LOGO -->
+    <img src="assets/logo.png" class="logo" />
+
+    <div class="login-box">
+
+      <h2>Hello Creatives!</h2>
+      <p class="sub">Sign in using your Liceo account</p>
+
+      <form (ngSubmit)="login()">
+
+        <label>Your Name</label>
+<input 
+  type="text"
+  [(ngModel)]="name"
+  name="name"
+  placeholder="Enter your name"
+  required
+/>
+
+        <!-- EMAIL -->
+        <label>School Email</label>
+        <input 
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="you@liceo.edu.ph"
+          required
+        />
+
+        <!-- PASSWORD -->
+        <label>Password</label>
+        <input 
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+
+        <!-- ROLE -->
+        <label>Role</label>
+        <select [(ngModel)]="role" name="role" required>
+          <option value="" disabled selected>Select your role</option>
+
+          <!-- 🔥 NEW ROLES -->
+          <option value="creative_director">Creative Director</option>
+          <option value="production_lead">Production Lead</option>
+
+          <!-- EXISTING ROLES -->
+          <option value="videographer">Videographer</option>
+          <option value="photographer">Photographer</option>
+          <option value="graphic_designer">Graphic Designer</option>
+          <option value="video_editor">Video Editor</option>
+        </select>
+
+        <!-- BUTTON -->
+        <button type="submit">Sign In</button>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="login-right">
+
+    <div class="image-track"></div>
+
+    <div class="overlay">
+      <h3>
+        “Capturing the moments that define our school spirit, one frame at a time.”
+      </h3>
+      <p>THE LICEO CREATIVES</p>
+    </div>
+
+  </div>
+
+</div>

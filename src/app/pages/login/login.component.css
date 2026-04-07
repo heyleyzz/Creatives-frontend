@@ -1,0 +1,147 @@
+/* LAYOUT */
+.login-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* LEFT PANEL */
+.login-left {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 50px 70px;
+  background: #ffffff;
+}
+
+/* 🔥 BIG LOGO (FIXED) */
+.logo {
+  width: 100%;
+  max-width: 300px;   /* 🔥 adjust here if you want bigger */
+  margin-bottom: 40px;
+
+  transition: transform 0.3s ease;
+}
+
+/* 🔥 OPTIONAL HOVER EFFECT */
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* LOGIN BOX */
+.login-box {
+  width: 80%;
+  max-width: 380px;
+}
+
+/* TEXT */
+.login-box h2 {
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.sub {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+/* FORM */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* INPUT + SELECT */
+input, select {
+  padding: 14px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+/* BUTTON */
+button {
+  padding: 14px;
+  background: #8b0000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: #a30000;
+  transform: translateY(-1px);
+}
+
+/* RIGHT */
+.login-right {
+  width: 65%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* IMAGE */
+.image-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 120%;
+  height: 100%;
+
+  background-image: url('/assets/loginbg.png');
+  background-size: cover;
+  background-position: center;
+
+  animation: pan 18s ease-in-out infinite alternate;
+}
+
+/* SMOOTH PAN */
+@keyframes pan {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-15%);
+  }
+}
+
+/* RED OVERLAY */
+.login-right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(139, 0, 0, 0.6);
+}
+
+/* TEXT OVERLAY */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  color: white;
+  padding: 40px;
+}
+
+.overlay h3 {
+  font-size: 24px;
+  line-height: 1.4;
+}
+
+.overlay p {
+  margin-top: 10px;
+  font-size: 13px;
+}

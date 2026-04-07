@@ -1,0 +1,43 @@
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="top-bar">
+    <div>
+      <h2>My Tasks</h2>
+      <p class="sub">Stay on track and manage your work</p>
+    </div>
+  </div>
+
+  <!-- TASK CARDS -->
+  <div class="task-grid">
+
+    <div 
+      class="task-card"
+      *ngFor="let task of tasks"
+      [class.done]="task.isDone"
+    >
+
+      <!-- LEFT -->
+      <div class="left">
+        <input 
+          type="checkbox"
+          [checked]="task.isDone"
+          (change)="toggleDone(task)"
+        />
+
+        <div class="info">
+          <h3>{{ task.title }}</h3>
+          <p>{{ task.dueDate }}</p>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right">
+        <span class="badge">{{ task.department }}</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

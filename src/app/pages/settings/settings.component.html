@@ -1,0 +1,39 @@
+<div class="settings-card">
+
+  <h3>Account Settings</h3>
+
+  <form>
+
+    <!-- EMAIL -->
+    <div class="input-group">
+      <label>Email Address</label>
+      <input type="email" name="email" [(ngModel)]="email">
+    </div>
+
+    <!-- PASSWORD SECTION -->
+    <div class="section">
+      <h4>Change Password</h4>
+
+      <div class="input-group">
+        <label>New Password</label>
+        <input type="password" name="password" [(ngModel)]="password">
+      </div>
+
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword">
+      </div>
+
+      <p *ngIf="passwordError" class="error-msg">
+        ❌ Passwords do not match
+      </p>
+    </div>
+
+    <!-- ACTION -->
+    <button type="button" class="save-btn" (click)="saveSettings()">
+      Save Settings
+    </button>
+
+  </form>
+
+</div>

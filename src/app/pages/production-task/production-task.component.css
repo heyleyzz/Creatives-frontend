@@ -1,0 +1,141 @@
+/* 🔥 BOARD LAYOUT (FIXED HORIZONTAL) */
+.board {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  align-items: flex-start;
+  overflow-x: auto; /* allows scroll if many columns */
+}
+
+/* COLUMN */
+.column {
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
+  background: #f4f4f4;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+/* HEADER */
+.column-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.column-header h3 {
+  font-size: 14px;
+  flex: 1;
+}
+
+.count {
+  background: #ddd;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+/* DOT COLORS */
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.pending {
+  background: #999;
+}
+
+.progress {
+  background: orange;
+}
+
+.complete {
+  background: green;
+}
+
+/* TASK LIST */
+.task-list {
+  min-height: 200px;
+  background: #fafafa;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: grab;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+
+  will-change: transform;
+  transition: transform 0.15s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+/* 🔥 DRAG SMOOTHNESS */
+.cdk-drag {
+  transition: transform 0.2s ease;
+}
+
+.cdk-drag-preview {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drop-list-dragging .card {
+  transition: transform 0.2s ease;
+}
+
+/* 📊 PERFORMANCE SECTION */
+.performance-section {
+  margin: 30px 20px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.performance-header h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.performance-header p {
+  color: #888;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+/* CHART SIZE FIX */
+canvas {
+  width: 100% !important;
+  height: 300px !important;
+}
+
+.pending-card {
+  background: #f3f4f6;
+  border-left: 5px solid #9ca3af;
+}
+
+.progress-card {
+  background: #fef3c7;
+  border-left: 5px solid #f59e0b;
+}
+
+.complete-card {
+  background: #dcfce7;
+  border-left: 5px solid #22c55e;
+}

@@ -1,0 +1,124 @@
+<div class="profile-wrapper">
+
+  <!-- HEADER -->
+  <div class="profile-header">
+    <h2>Profile</h2>
+    <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+
+  <!-- CARD -->
+  <div class="profile-card">
+
+    <!-- LEFT SIDE -->
+    <div class="left">
+
+      <!-- 🔥 TOP SECTION (FIXED LAYOUT) -->
+      <div class="profile-top">
+
+        <!-- AVATAR -->
+        <div class="avatar-section">
+
+          <img *ngIf="imagePreview" [src]="imagePreview" class="avatar" />
+
+          <div *ngIf="!imagePreview" class="avatar-placeholder">
+            No Photo
+          </div>
+
+          <input type="file" hidden #fileInput (change)="onFileSelected($event)">
+
+          <button type="button" (click)="fileInput.click()" class="upload-btn">
+            Change Photo
+          </button>
+
+        </div>
+
+        <!-- 🔥 NAME + ROLE BESIDE -->
+        <div class="user-text">
+          <h3>{{ name || 'Your Name' }}</h3>
+          <p class="role">{{ role || 'Your Role' }}</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+
+      <form>
+
+        <!-- ROW -->
+        <div class="row">
+
+          <div class="input-group">
+            <label>First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              [(ngModel)]="firstName"
+            >
+          </div>
+
+          <div class="input-group">
+            <label>Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              [(ngModel)]="lastName"
+            >
+          </div>
+
+        </div>
+
+        <!-- EMAIL -->
+        <div class="input-group">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+          >
+        </div>
+
+        <!-- BIO -->
+        <div class="input-group">
+          <label>Bio</label>
+          <textarea
+            name="bio"
+            [(ngModel)]="bio"
+          ></textarea>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="actions">
+
+          <button type="button" class="save-btn" (click)="saveProfile()">
+            Save Changes
+          </button>
+
+          <p *ngIf="showSuccess" class="success-msg">
+            ✅ Profile saved successfully!
+          </p>
+
+          <button
+            type="button"
+            class="settings-btn"
+            (click)="activeTab = 'settings'"
+          >
+            Open Settings
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- SETTINGS -->
+  <div *ngIf="activeTab === 'settings'" class="settings-container">
+    <app-settings></app-settings>
+  </div>
+
+</div>

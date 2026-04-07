@@ -1,0 +1,63 @@
+.container {
+  padding: 40px;
+}
+
+/* GRID */
+.task-grid {
+  display: grid;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* CARD */
+.task-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 20px;
+  border-radius: 12px;
+
+  background: white;
+  border: 1px solid #eee;
+
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.task-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* DONE STYLE */
+.task-card.done {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+/* LEFT */
+.left {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.info h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.info p {
+  margin: 0;
+  font-size: 12px;
+  color: #777;
+}
+
+/* BADGE */
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  background: #f3f4f6;
+}

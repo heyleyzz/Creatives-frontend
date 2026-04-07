@@ -1,0 +1,194 @@
+<div class="page">
+
+  <h2>Upload & Submit Work</h2>
+
+  <div class="main-layout">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <div class="card submit-card">
+
+        <!-- UPLOAD -->
+        <div 
+          class="upload-box"
+          (click)="fileInput.click()"
+          (drop)="onFileDrop($event)"
+          (dragover)="onDragOver($event)"
+        >
+          <p>Drag & Drop files here</p>
+          <span>or click to browse</span>
+
+          <input 
+            type="file"
+            #fileInput
+            hidden
+            multiple
+            (change)="onFileSelected($event)"
+          >
+        </div>
+
+        <!-- FILE LIST -->
+        <div class="file-preview" *ngIf="files.length > 0">
+          <div class="file-card" *ngFor="let file of files">
+            {{ file.name }}
+          </div>
+        </div>
+
+        <!-- TITLE -->
+        <div class="field">
+          <label>Project Title</label>
+          <input [(ngModel)]="title">
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="field">
+          <label>Description</label>
+          <textarea [(ngModel)]="description"></textarea>
+        </div>
+
+        <button type="button" class="btn-primary full" (click)="submitWork()">
+          Submit for Review
+        </button>
+
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+      <!-- ================= REVIEW ================= -->
+      <div 
+        class="workflow-section"
+        cdkDropList
+        [cdkDropListData]="reviewList"
+        [cdkDropListConnectedTo]="['postList']"
+        (cdkDropListDropped)="drop($event)"
+      >
+
+        <div class="section-header">
+          <h3>Ready for Review</h3>
+        </div>
+
+        <div class="section-content">
+
+          <div class="workflow-card" *ngFor="let item of reviewList" cdkDrag>
+
+            <!-- DRAG PREVIEW -->
+            <ng-template cdkDragPreview>
+              <div class="drag-preview">
+                {{ item.title }}
+              </div>
+            </ng-template>
+
+            <ng-template cdkDragPlaceholder>
+              <div class="drag-placeholder"></div>
+            </ng-template>
+
+            <!-- HEADER -->
+            <div class="card-top">
+              <strong>{{ item.title }}</strong>
+              <span class="status review">Needs Review</span>
+            </div>
+
+            <!-- FILE LIST -->
+            <div class="file-list" *ngIf="item.files && item.files.length > 0">
+              <div 
+                class="file-item"
+                *ngFor="let file of item.files"
+                (click)="previewFile(file)"
+              >
+                {{ file.name }}
+              </div>
+            </div>
+
+            <!-- FILE PREVIEW -->
+            <div class="file-preview-viewer" *ngIf="selectedFile">
+
+              <p><strong>Preview:</strong> {{ selectedFile.name }}</p>
+
+              <img 
+                *ngIf="selectedFile.type && selectedFile.type.startsWith('image/')"
+                [src]="fileUrl"
+                class="preview-img"
+              >
+
+              <p *ngIf="!selectedFile.type || !selectedFile.type.startsWith('image/')">
+                Preview not available
+              </p>
+
+            </div>
+
+            <!-- COMMENTS -->
+            <div class="chat-box">
+              <div class="chat-bubble" *ngFor="let c of item.comments">
+                {{ c.text }}
+              </div>
+            </div>
+
+            <!-- COMMENT INPUT -->
+            <div class="comment-input">
+              <input [(ngModel)]="item.newComment" placeholder="Add comment...">
+              <button type="button" class="send-btn" (click)="addComment(item)">
+                Send
+              </button>
+            </div>
+
+            <!-- REVISION -->
+            <button type="button" class="revise-btn" (click)="enableRevision(item)">
+              Request Revision
+            </button>
+
+            <div *ngIf="item.isRevising" class="revision-box">
+              <input type="file" (change)="onRevisionUpload($event, item)">
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= POST ================= -->
+      <div 
+        class="workflow-section"
+        cdkDropList
+        [cdkDropListData]="postList"
+        [cdkDropListConnectedTo]="['reviewList']"
+        (cdkDropListDropped)="drop($event)"
+      >
+
+        <div class="section-header">
+          <h3>Ready to Post</h3>
+        </div>
+
+        <div class="section-content">
+
+          <div class="workflow-card done" *ngFor="let item of postList" cdkDrag>
+
+            <ng-template cdkDragPreview>
+              <div class="drag-preview">
+                {{ item.title }}
+              </div>
+            </ng-template>
+
+            <div class="card-top">
+              <strong>{{ item.title }}</strong>
+              <span class="status done">Approved</span>
+            </div>
+
+            <div class="card-actions">
+              <button type="button" class="done-btn" (click)="markAsDone(item)">
+                Mark as Done
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

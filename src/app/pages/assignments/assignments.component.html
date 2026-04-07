@@ -1,0 +1,56 @@
+<div class="container">
+
+  <h2 class="title">Team Assignments</h2>
+  <p class="subtitle">
+    Manage and track tasks distributed across production departments.
+  </p>
+
+  <div class="grid">
+
+    <div class="card" *ngFor="let dept of departments">
+
+      <!-- HEADER -->
+      <div class="card-header">
+        <div class="left">
+          <span class="dot" [style.background]="dept.color"></span>
+          <h3>{{ dept.label }}</h3>
+        </div>
+
+        <span class="badge">
+          {{ getTasksByDept(dept.key).length }}
+        </span>
+      </div>
+
+      <!-- TASK LIST -->
+      <div class="task-section">
+        <p class="label">
+          ACTIVE TASKS ({{ getTasksByDept(dept.key).length }})
+        </p>
+
+        <div class="task-item"
+             *ngFor="let task of getTasksByDept(dept.key)">
+          <div class="task-title">{{ task.title }}</div>
+          <div class="task-date">Due {{ task.dueDate }}</div>
+        </div>
+      </div>
+
+      <!-- ADD BUTTON -->
+      <button class="add-btn" (click)="openForm(dept.key)">
+        + Assign new task
+      </button>
+
+      <!-- FORM -->
+      <div *ngIf="showForm === dept.key" class="form">
+        <input [(ngModel)]="newTask.title" placeholder="Task title">
+        <input [(ngModel)]="newTask.dueDate" placeholder="Due date">
+
+        <button (click)="addTask()" class="submit">
+          Add Task
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
