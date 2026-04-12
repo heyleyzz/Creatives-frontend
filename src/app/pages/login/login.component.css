@@ -3,6 +3,7 @@
   display: flex;
   height: 100vh;
   overflow: hidden;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* LEFT PANEL */
@@ -12,39 +13,43 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 50px 70px;
+  padding: 60px 80px;
   background: #ffffff;
 }
 
-/* 🔥 BIG LOGO (FIXED) */
+/* 🔥 LOGO (ADJUSTED SPACING) */
 .logo {
   width: 100%;
-  max-width: 300px;   /* 🔥 adjust here if you want bigger */
-  margin-bottom: 40px;
-
+  max-width: 280px;
+  margin-bottom: 20px; /* ✅ REDUCED (was 50px) */
   transition: transform 0.3s ease;
 }
 
-/* 🔥 OPTIONAL HOVER EFFECT */
 .logo:hover {
   transform: scale(1.05);
 }
 
 /* LOGIN BOX */
 .login-box {
-  width: 80%;
-  max-width: 380px;
+  width: 100%;
+  max-width: 400px;
 }
 
-/* TEXT */
+/* 🔥 TITLE (PREMIUM LOOK + FIXED POSITION) */
 .login-box h2 {
-  font-size: 30px;
-  margin-bottom: 5px;
+  font-size: 34px;
+  font-weight: 600;
+  margin-top: 0;        /* ✅ ADDED */
+  margin-bottom: 6px;
+  color: #111;
+  letter-spacing: 0.3px;
 }
 
+/* SUBTEXT */
 .sub {
-  color: #777;
-  margin-bottom: 25px;
+  color: #6b7280;
+  margin-bottom: 30px;
+  font-size: 14px;
 }
 
 /* FORM */
@@ -53,33 +58,62 @@ form {
   flex-direction: column;
 }
 
-/* INPUT + SELECT */
-input, select {
-  padding: 14px;
-  margin-bottom: 16px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: 14px;
+/* LABEL */
+label {
+  font-size: 13px;
+  font-weight: 600; /* 🔥 bolder */
+  color: #7f1d1d;   /* 🔥 premium dark red */
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
 }
 
-/* BUTTON */
+/* 🔥 INPUT + SELECT (GLASS CLEAN STYLE) */
+input, select {
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+
+  font-size: 14px;
+  background: #f9fafb;
+
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* 🔥 FOCUS STATE */
+input:focus, select:focus {
+  border-color: #8b0000;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
+/* 🔥 BUTTON (PREMIUM GRADIENT) */
 button {
   padding: 14px;
-  background: #8b0000;
+  margin-top: 5px;
+
+  background: linear-gradient(135deg, #8b0000, #5a0000);
   color: white;
+
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+
   font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: all 0.25s ease;
 }
 
+/* HOVER */
 button:hover {
-  background: #a30000;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.3);
 }
 
-/* RIGHT */
+/* RIGHT PANEL */
 .login-right {
   width: 65%;
   position: relative;
@@ -104,20 +138,19 @@ button:hover {
 
 /* SMOOTH PAN */
 @keyframes pan {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-15%);
-  }
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-15%); }
 }
 
-/* RED OVERLAY */
+/* 🔥 PREMIUM OVERLAY (SOFTER + DEEPER) */
 .login-right::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(139, 0, 0, 0.6);
+  background: linear-gradient(
+    rgba(139, 0, 0, 0.75),
+    rgba(90, 0, 0, 0.85)
+  );
 }
 
 /* TEXT OVERLAY */
@@ -133,15 +166,74 @@ button:hover {
   text-align: center;
 
   color: white;
-  padding: 40px;
+  padding: 60px;
 }
 
+/* 🔥 QUOTE (PREMIUM TYPOGRAPHY) */
 .overlay h3 {
-  font-size: 24px;
-  line-height: 1.4;
+  margin-top: -10px;
+  font-size: 28px;
+  line-height: 1.6;
+  font-weight: 500;
+  max-width: 620px;
+
+  /* 🔥 PREMIUM FONT */
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+
+  /* 🔥 PREMIUM GOLD COLOR (NOT BASIC YELLOW) */
+  color: #fbbf24;
+
+  /* ✨ DEPTH + GLOW */
+  text-shadow: 
+    0 2px 6px rgba(0,0,0,0.4),
+    0 0 12px rgba(251, 191, 36, 0.3);
+
+  letter-spacing: 0.4px;
+}
+ .overlay h3::before,
+.overlay h3::after {
+  content: '"';
+  font-size: 34px;
+  color: rgba(255,255,255,0.3);
+}
+/* AUTHOR */
+.overlay p {
+  margin-top: 18px;
+  font-size: 12px;
+  letter-spacing: 2px;
+
+  color: #fde68a; /* softer gold */
+  opacity: 0.9;
+
+  font-weight: 500;
 }
 
-.overlay p {
-  margin-top: 10px;
-  font-size: 13px;
+/* 🔥 PREMIUM TITLE */
+.title {
+  font-size: 36px;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  color: #111;
+  font-family: 'Playfair Display', serif;
+}
+
+/* highlight "Creatives" */
+.title span {
+  color: #8b0000;
+  font-weight: 600;
+}
+.overlay-logo {
+  width: 140px; /* 🔥 bigger */
+  margin-bottom: 20px;
+
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+  transition: transform 0.3s ease;
+    transform: translateY(-20px);
+}
+
+.overlay-logo:hover {
+  transform: scale(1.05);
 }

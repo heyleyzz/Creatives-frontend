@@ -1,69 +1,83 @@
-<div class="board">
+<!-- PAGE WRAPPER -->
+<div class="production-page">
 
-  <!-- PENDING -->
-  <div class="column">
-    <div class="column-header">
-      <span class="dot pending"></span>
-      <h3>Pending</h3>
-      <span class="count">{{ pending.length }}</span>
-    </div>
-
-    <div
-      cdkDropList
-      id="pendingList"
-      [cdkDropListData]="pending"
-      [cdkDropListConnectedTo]="['pendingList','inProgressList','completeList']"
-      class="task-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <div class="card pending-card" *ngFor="let task of pending" cdkDrag>
-        {{ task.title }}
-      </div>
-    </div>
+  <!-- ✅ HEADER (NOW AT THE TOP) -->
+  <div class="production-header">
+    <h2 class="tasks-title">
+  Production <span>Tasks</span>
+</h2>
+    <p>Manage videos, photos, and editing workflows.</p>
   </div>
 
-  <!-- IN PROGRESS -->
-  <div class="column">
-    <div class="column-header">
-      <span class="dot progress"></span>
-      <h3>In Progress</h3>
-      <span class="count">{{ inProgress.length }}</span>
-    </div>
+  <!-- BOARD -->
+  <div class="board">
 
-    <div
-      cdkDropList
-      id="inProgressList"
-      [cdkDropListData]="inProgress"
-      [cdkDropListConnectedTo]="['pendingList','inProgressList','completeList']"
-      class="task-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <div class="card progress-card" *ngFor="let task of inProgress" cdkDrag>
-        {{ task.title }}
+    <!-- PENDING -->
+    <div class="column">
+      <div class="column-header">
+        <span class="dot pending"></span>
+        <h3>Pending</h3>
+        <span class="count">{{ pending.length }}</span>
+      </div>
+
+      <div
+        cdkDropList
+        id="pendingList"
+        [cdkDropListData]="pending"
+        [cdkDropListConnectedTo]="['pendingList','inProgressList','completeList']"
+        class="task-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="card pending-card" *ngFor="let task of pending" cdkDrag>
+          {{ task.title }}
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- COMPLETE -->
-  <div class="column">
-    <div class="column-header">
-      <span class="dot complete"></span>
-      <h3>Complete</h3>
-      <span class="count">{{ complete.length }}</span>
-    </div>
+    <!-- IN PROGRESS -->
+    <div class="column">
+      <div class="column-header">
+        <span class="dot progress"></span>
+        <h3>In Progress</h3>
+        <span class="count">{{ inProgress.length }}</span>
+      </div>
 
-    <div
-      cdkDropList
-      id="completeList"
-      [cdkDropListData]="complete"
-      [cdkDropListConnectedTo]="['pendingList','inProgressList','completeList']"
-      class="task-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <div class="card complete-card" *ngFor="let task of complete" cdkDrag>
-        {{ task.title }}
+      <div
+        cdkDropList
+        id="inProgressList"
+        [cdkDropListData]="inProgress"
+        [cdkDropListConnectedTo]="['pendingList','inProgressList','completeList']"
+        class="task-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="card progress-card" *ngFor="let task of inProgress" cdkDrag>
+          {{ task.title }}
+        </div>
       </div>
     </div>
+
+    <!-- COMPLETE -->
+    <div class="column">
+      <div class="column-header">
+        <span class="dot complete"></span>
+        <h3>Complete</h3>
+        <span class="count">{{ complete.length }}</span>
+      </div>
+
+      <div
+        cdkDropList
+        id="completeList"
+        [cdkDropListData]="complete"
+        [cdkDropListConnectedTo]="['pendingList','inProgressList','completeList']"
+        class="task-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="card complete-card" *ngFor="let task of complete" cdkDrag>
+          {{ task.title }}
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </div>

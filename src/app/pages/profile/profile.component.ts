@@ -12,47 +12,64 @@ import { SettingsComponent } from '../settings/settings.component';
 })
 export class ProfileComponent implements OnInit {
 
-  // 🔥 FORM DATA
   firstName = '';
   lastName = '';
   email = '';
   bio = '';
 
-  // 🔥 LOGIN DATA (FROM LOCAL STORAGE)
-  name: string = '';
-  role: string = '';
+  name = '';
+  role = '';
 
-  // UI
   imagePreview: string | null = null;
-  activeTab: string = 'profile';
+
+  activeTab = 'profile';
   showSuccess = false;
 
-  // ✅ LOAD NAME + ROLE
-  ngOnInit() {
+  ngOnInit(): void {
     this.name = localStorage.getItem('name') || 'Your Name';
     this.role = localStorage.getItem('role') || 'Your Role';
+
+    const savedImage = localStorage.getItem('profileImage');
+    if (savedImage && savedImage.startsWith('data:image')) {
+      this.imagePreview = savedImage;
+    }
   }
 
-  // IMAGE PREVIEW
+  // ✅ FORMAT ROLE
+  formatRole(role: string): string {
+    if (!role) return '';
+
+    return role
+      .replace(/_/g, ' ')
+      .toLowerCase()
+      .replace(/\b\w/g, c => c.toUpperCase());
+  }
+
   onFileSelected(event: any) {
     const file = event.target.files[0];
+
     if (file) {
       const reader = new FileReader();
+
       reader.onload = () => {
         this.imagePreview = reader.result as string;
+
+        localStorage.setItem('profileImage', this.imagePreview);
+
+        // 🔥 UPDATE SIDEBAR
+        window.dispatchEvent(new Event('profileUpdated'));
       };
+
       reader.readAsDataURL(file);
     }
   }
 
-  // LOGOUT
-  logout() {
+  logout(): void {
     localStorage.clear();
     window.location.href = '/login';
   }
 
-  // SAVE PROFILE
-  saveProfile() {
+  saveProfile(): void {
     this.showSuccess = true;
 
     setTimeout(() => {

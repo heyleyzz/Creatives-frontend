@@ -1,12 +1,47 @@
 .container {
   padding: 40px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* HEADER */
+.top-bar h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.sub {
+  color: #777;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* EMPTY STATE */
+.empty-state {
+  margin-top: 80px;
+  text-align: center;
+  color: #999;
+}
+
+.empty-state .icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.empty-state h3 {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.empty-state p {
+  font-size: 13px;
 }
 
 /* GRID */
 .task-grid {
   display: grid;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 18px;
+  margin-top: 30px;
 }
 
 /* CARD */
@@ -15,25 +50,47 @@
   justify-content: space-between;
   align-items: center;
 
-  padding: 18px 20px;
-  border-radius: 12px;
+  padding: 20px 22px;
+  border-radius: 14px;
 
-  background: white;
+  background: linear-gradient(145deg, #ffffff, #f9fafb);
   border: 1px solid #eee;
 
-  transition: 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+
+  transition: all 0.25s ease;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle glow line */
+.task-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(to bottom, #ff7a18, #ffb347);
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.task-card:hover::before {
+  opacity: 1;
 }
 
 .task-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
 /* DONE STYLE */
 .task-card.done {
-  opacity: 0.5;
+  opacity: 0.6;
   text-decoration: line-through;
+  background: #f3f4f6;
 }
 
 /* LEFT */
@@ -43,21 +100,115 @@
   align-items: center;
 }
 
+/* CHECKBOX STYLE */
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #ff7a18;
+  cursor: pointer;
+}
+
+/* TEXT */
 .info h3 {
   margin: 0;
   font-size: 16px;
+  font-weight: 600;
 }
 
-.info p {
-  margin: 0;
+.date {
+  margin-top: 4px;
   font-size: 12px;
-  color: #777;
+  color: #888;
+}
+
+/* RIGHT */
+.right {
+  display: flex;
+  align-items: center;
 }
 
 /* BADGE */
 .badge {
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 20px;
   font-size: 11px;
-  background: #f3f4f6;
+  font-weight: 500;
+
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  color: #333;
+
+  transition: 0.2s;
+}
+
+.task-card:hover .badge {
+  background: linear-gradient(135deg, #ffedd5, #fed7aa);
+  color: #c2410c;
+}
+/* 🔥 PREMIUM TITLE (MATCHES HELLO CREATIVES) */
+.tasks-title {
+  font-size: 40px;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.5px;
+
+  color: #111;
+  font-family: 'Playfair Display', serif;
+
+  margin-bottom: 5px;
+}
+
+/* highlight word */
+.tasks-title span {
+  color: #8b0000; /* same premium red */
+  font-weight: 600;
+}
+/* EMPTY STATE */
+.empty-state {
+  text-align: center;
+  margin-top: 120px;
+  color: #6b7280;
+}
+
+/* ICON */
+.empty-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.empty-icon svg {
+  width: 60px;
+  height: 60px;
+}
+
+/* TITLE */
+.empty-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 6px;
+}
+
+/* SUBTEXT */
+.empty-sub {
+  font-size: 13px;
+  color: #9ca3af;
+}
+.date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.date-icon {
+  display: flex;
+  align-items: center;
+}
+
+.date-icon svg {
+  width: 16px;
+  height: 16px;
 }

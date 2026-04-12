@@ -8,7 +8,9 @@
 
     <div class="login-box">
 
-      <h2>Hello Creatives!</h2>
+      <h2 class="title">
+  Hello <span>Creatives</span>!
+</h2>
       <p class="sub">Sign in using your Liceo account</p>
 
       <form (ngSubmit)="login()">
@@ -71,11 +73,16 @@
     <div class="image-track"></div>
 
     <div class="overlay">
-      <h3>
-        “Capturing the moments that define our school spirit, one frame at a time.”
-      </h3>
-      <p>THE LICEO CREATIVES</p>
-    </div>
+
+  <!-- ✅ ADD THIS -->
+  <img src="assets/liceo.png" class="overlay-logo" />
+
+  <h3>
+    “Capturing the moments that define our school spirit, one frame at a time.”
+  </h3>
+  <p>THE LICEO CREATIVES</p>
+
+</div>
 
   </div>
 

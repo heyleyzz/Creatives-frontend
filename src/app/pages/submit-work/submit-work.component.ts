@@ -1,20 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DragDropModule, CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
+import { DragDropModule, CdkDragDrop } from '@angular/cdk/drag-drop';
 
-interface Comment {
-  text: string;
-}
-
-interface TaskItem {
-  title: string;
-  description?: string;
-  files: File[];
-  comments: Comment[];
-  newComment: string;
-  isRevising: boolean;
-}
+import { SubmitWorkService } from './submit-work.service';
+import { Task } from './submit-work.model';
 
 @Component({
   selector: 'app-submit-work',
@@ -23,31 +13,46 @@ interface TaskItem {
   templateUrl: './submit-work.component.html',
   styleUrls: ['./submit-work.component.css']
 })
-export class SubmitWorkComponent {
+export class SubmitWorkComponent implements OnInit {
+
+  constructor(private taskService: SubmitWorkService) {}
 
   title = '';
   description = '';
   files: File[] = [];
 
-  reviewList: TaskItem[] = [];
-  postList: TaskItem[] = [];
+  // ✅ GOOGLE DRIVE
+  driveLink: string = '';
 
-  // 🔥 FILE PREVIEW (REQUIRED FOR HTML)
-  selectedFile: File | null = null;
+  tasks: Task[] = [];
+
+  selectedFile: any = null;
   fileUrl: string = '';
 
-  // 📁 FILE SELECT (SAFE)
+  // ✅ LOAD DATA
+  ngOnInit() {
+    this.tasks = this.taskService.getTasks();
+  }
+
+  // ✅ GETTERS
+  get reviewList() {
+    return this.tasks.filter(t => t.status === 'review');
+  }
+
+  get postList() {
+    return this.tasks.filter(t => t.status === 'post');
+  }
+
+  // 📁 FILE SELECT
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files) return;
-
     this.files = Array.from(input.files);
   }
 
   // 📁 DRAG DROP FILE
   onFileDrop(event: DragEvent) {
     event.preventDefault();
-
     if (event.dataTransfer?.files) {
       this.files = Array.from(event.dataTransfer.files);
     }
@@ -57,89 +62,107 @@ export class SubmitWorkComponent {
     event.preventDefault();
   }
 
-  // 🚀 SUBMIT
+  // 🚀 SUBMIT (FILE + DRIVE LINK)
   submitWork() {
     if (!this.title.trim()) return;
 
-    this.reviewList.push({
+    const newTask: Task = {
       title: this.title,
       description: this.description,
-      files: [...this.files],
+
+      files: [
+        ...this.files.map(f => f.name),
+        ...(this.driveLink ? [this.driveLink] : [])
+      ],
+
       comments: [],
-      newComment: '',
-      isRevising: false
-    });
+      status: 'review',
+      isRevising: false,
+      createdAt: new Date()
+    };
+
+    this.taskService.addTask(newTask);
+    this.tasks = this.taskService.getTasks();
 
     // reset
     this.title = '';
     this.description = '';
     this.files = [];
+    this.driveLink = '';
   }
 
   // 💬 ADD COMMENT
-  addComment(item: TaskItem) {
-    if (!item.newComment.trim()) return;
+  addComment(item: Task) {
+    if (!item.newComment || !item.newComment.trim()) return;
 
     item.comments.push({
-      text: item.newComment
+      text: item.newComment,
+      createdAt: new Date()
     });
 
     item.newComment = '';
   }
 
   // 🔁 ENABLE REVISION
-  enableRevision(item: TaskItem) {
+  enableRevision(item: Task) {
     item.isRevising = true;
   }
 
-  // 📁 UPLOAD REVISION (SAFE)
-  onRevisionUpload(event: Event, item: TaskItem) {
+  // 📁 REVISION UPLOAD
+  onRevisionUpload(event: Event, item: Task) {
     const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) return;
+    if (!input.files?.length) return;
 
     const file = input.files[0];
 
-    item.files = [file];
+    item.files = [file.name];
 
     item.comments.push({
-      text: 'Revision uploaded'
+      text: 'Revision uploaded',
+      createdAt: new Date()
     });
 
     item.isRevising = false;
   }
 
-  // 🔥 FILE PREVIEW (FIXES YOUR ERROR)
-  previewFile(file: File) {
+  // 🔥 PREVIEW (FILE + DRIVE)
+  previewFile(file: any) {
     if (!file) return;
 
-    this.selectedFile = file;
-
-    // revoke old URL (prevents memory leak)
-    if (this.fileUrl) {
-      URL.revokeObjectURL(this.fileUrl);
+    // Google Drive preview
+    if (typeof file === 'string' && file.includes('drive.google.com')) {
+      this.fileUrl = file.replace('/view', '/preview');
+      this.selectedFile = null;
+      return;
     }
 
-    if (file.type && file.type.startsWith('image/')) {
-      this.fileUrl = URL.createObjectURL(file);
+    // Local file preview
+    if (file instanceof File) {
+      this.selectedFile = file;
+
+      if (this.fileUrl) URL.revokeObjectURL(this.fileUrl);
+
+      this.fileUrl = file.type.startsWith('image/')
+        ? URL.createObjectURL(file)
+        : '';
     } else {
-      this.fileUrl = '';
+      this.selectedFile = null;
+      this.fileUrl = file;
     }
   }
 
   // 🔄 DRAG DROP
-  drop(event: CdkDragDrop<TaskItem[]>) {
+  drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer !== event.container) {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      const item = event.previousContainer.data[event.previousIndex];
+      const containerText = event.container.element.nativeElement.textContent;
+
+      item.status = containerText.includes('Post') ? 'post' : 'review';
     }
   }
 
   // ✅ MARK AS DONE
-  markAsDone(item: TaskItem) {
-    this.postList = this.postList.filter(i => i !== item);
+  markAsDone(item: Task) {
+    this.tasks = this.tasks.filter(t => t !== item);
   }
 }

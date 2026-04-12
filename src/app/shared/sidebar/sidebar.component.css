@@ -31,40 +31,42 @@
 
 /* MOTIVATION */
 .motivation {
-  margin: 10px 0 12px;
-
+  margin: 12px 0 16px;
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
-
+  flex-direction: column;
+  gap: 2px;
   font-size: 13px;
-  line-height: 1.5;
-
+  line-height: 1.4;
   color: rgba(255,255,255,0.85);
+  position: relative;
+  padding-left: 14px;
 }
 
 .motivation::before {
   content: "“";
+  position: absolute;
+  left: 0;
+  top: 0;
   font-size: 20px;
   color: rgba(255,255,255,0.25);
-  margin-top: 4px;
 }
 
 .motivation span {
   font-weight: 600;
+  font-size: 14px;
 }
 
 .motivation small {
-  display: block;
   font-size: 12px;
+  opacity: 0.75;
+  margin-top: 2px;
 }
 
-/* 🔥 MENU (SCROLL BUT HIDDEN BAR) */
+/* MENU */
 .menu {
   flex: 1;
   overflow-y: auto;
   padding-right: 5px;
-
   scrollbar-width: none;
 }
 
@@ -101,7 +103,6 @@
   transition: all 0.25s ease;
 }
 
-/* LIGHT SWEEP */
 .menu a::before {
   content: "";
   position: absolute;
@@ -124,13 +125,11 @@
   left: 100%;
 }
 
-/* HOVER */
 .menu a:hover {
   background: rgba(255, 255, 255, 0.08);
   transform: translateX(4px);
 }
 
-/* ACTIVE */
 .menu a.active {
   background: linear-gradient(
     to right,
@@ -145,14 +144,11 @@
 .icon {
   width: 20px;
   height: 20px;
-
   stroke: white;
   stroke-width: 1.8;
   fill: none;
-
   stroke-dasharray: 50;
   stroke-dashoffset: 0;
-
   transition: stroke-dashoffset 0.5s ease, stroke 0.2s ease;
 }
 
@@ -174,37 +170,52 @@
   }
 }
 
-/* 🔥 USER (IMPROVED LAYOUT + ANIMATION) */
+/* 🔥 USER */
 .user {
   flex-shrink: 0;
-
   display: flex;
   align-items: center;
-  gap: 12px; /* 🔥 spacing improved */
+  gap: 12px;
 
   padding: 12px;
   border-radius: 12px;
 
   background: rgba(255,255,255,0.06);
-
   margin-top: 10px;
 
   cursor: pointer;
-
   transition: all 0.2s ease;
 }
 
-/* PROFILE IMAGE */
+/* ✅ IMAGE (ONLY WHEN EXISTS) */
 .user img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
-/* 🔥 NAME + ROLE STACKED */
+/* ✅ PLACEHOLDER (THIS FIXES YOUR ISSUE) */
+.avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  background: linear-gradient(135deg, #c1121f, #8b0000);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* USER INFO */
 .user-info {
   display: flex;
-  flex-direction: column; /* 🔥 THIS FIXES YOUR PROBLEM */
+  flex-direction: column;
   justify-content: center;
   line-height: 1.2;
 }
@@ -219,13 +230,13 @@
   opacity: 0.7;
 }
 
-/* hover */
+/* HOVER */
 .user:hover {
   background: rgba(255,255,255,0.12);
   transform: translateY(-2px);
 }
 
-/* click glow */
+/* CLICK */
 .user:active {
   transform: scale(0.96);
   background: rgba(250, 204, 21, 0.15);

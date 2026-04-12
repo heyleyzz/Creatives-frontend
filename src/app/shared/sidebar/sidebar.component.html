@@ -11,7 +11,6 @@
 
   <div class="menu">
 
-    <!-- PERSONAL -->
     <p class="section-title">PERSONAL</p>
 
     <a routerLink="/my-tasks" routerLinkActive="active">
@@ -22,7 +21,6 @@
       <span>My Tasks</span>
     </a>
 
-    <!-- WORKFLOW -->
     <p class="section-title">WORKFLOW</p>
 
     <a routerLink="/production" routerLinkActive="active">
@@ -53,14 +51,22 @@
 
   </div>
 
-  <!-- 🔥 DYNAMIC USER -->
+  <!-- 🔥 USER -->
   <div class="user" routerLink="/profile" routerLinkActive="active">
-    <img src="https://i.pravatar.cc/40">
+
+    <img *ngIf="profileImage; else noPhoto" [src]="profileImage" />
+
+    <ng-template #noPhoto>
+      <div class="avatar-placeholder">
+        {{ name ? name.charAt(0).toUpperCase() : '👤' }}
+      </div>
+    </ng-template>
 
     <div class="user-info">
-      <div class="name">{{ name }}</div>
-      <div class="role">{{ role }}</div>
+      <div class="name">{{ name || 'Your Name' }}</div>
+      <div class="role">{{ formatRole(role) || 'Your Role' }}</div>
     </div>
+
   </div>
 
 </div>
