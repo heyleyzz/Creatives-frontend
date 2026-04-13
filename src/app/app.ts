@@ -12,12 +12,17 @@ import { ApiService } from './services/api.service';
   imports: [CommonModule, RouterOutlet, SidebarComponent], // ✅ FIX
   templateUrl: './app.html',
   styleUrls: ['./app.css']
-
-  
 })
 export class AppComponent {
 
 constructor(public auth: AuthService, private api: ApiService) {}
+
+  username = ''
+  password = ''
+  loginError = ''
+  profile: { user: string; role: string } | null = null
+  items: string[] = []
+  newItem = ''
 
   ngOnInit() {
     if (this.auth.isLoggedIn()) this.loadData()
@@ -43,10 +48,6 @@ constructor(public auth: AuthService, private api: ApiService) {}
       },
       error: (err) => console.error(err)
     })
-  }
-
-  isLoginPage(): boolean {
-    return this.router.url.includes('/login'); // ✅ safer
   }
 
 }
