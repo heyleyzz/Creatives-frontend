@@ -4,7 +4,7 @@
   <div class="login-left">
 
     <!-- 🔥 BIG LOGO -->
-    <img src="assets/logo.png" class="logo" />
+    <img src="assets/logo.png" class="logo" alt="Creatives logo" />
 
     <div class="login-box">
 
@@ -40,12 +40,13 @@
           type="password"
           [(ngModel)]="password"
           name="password"
+          placeholder="Enter your password"
           required
         />
 
         <!-- ROLE -->
         <label>Role</label>
-        <select [(ngModel)]="role" name="role" required>
+        <select [(ngModel)]="role" name="role" title="Select your role" required>
           <option value="" disabled selected>Select your role</option>
 
           <!-- 🔥 NEW ROLES -->
@@ -75,7 +76,7 @@
     <div class="overlay">
 
   <!-- ✅ ADD THIS -->
-  <img src="assets/liceo.png" class="overlay-logo" />
+  <img src="assets/liceo.png" class="overlay-logo" alt="Liceo school logo" />
 
   <h3>
     “Capturing the moments that define our school spirit, one frame at a time.”

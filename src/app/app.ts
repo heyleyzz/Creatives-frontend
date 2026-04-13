@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { CommonModule } from '@angular/common'; // ✅ FIX
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { inject } from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { ApiService } from './services/api';
 
 @Component({
   selector: 'app-root',
