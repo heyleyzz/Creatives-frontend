@@ -1,5 +1,13 @@
-<ng-container *ngIf="!auth.isLoggedIn(); else loginLayout">
+<ng-container *ngIf="!auth.isLoggedIn(); else mainLayout">
 
+  <!-- LOGIN ONLY (FULL SCREEN) -->
+  <router-outlet></router-outlet>
+
+</ng-container>
+
+<ng-template #mainLayout>
+
+  <!-- MAIN APP WITH SIDEBAR -->
   <div class="layout">
     <app-sidebar></app-sidebar>
 
@@ -8,8 +16,4 @@
     </div>
   </div>
 
-</ng-container>
-
-<ng-template #loginLayout>
-  <router-outlet></router-outlet>
 </ng-template>

@@ -188,3 +188,7 @@ canvas {
   color: #8b0000;
   font-weight: 600;
 }
+.page-title {
+  margin-left: 20px;
+  margin-top: 10px;
+}
