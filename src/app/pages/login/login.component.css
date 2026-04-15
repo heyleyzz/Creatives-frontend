@@ -6,7 +6,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* LEFT PANEL */
+/* LEFT PANEL (✅ UPDATED) */
 .login-left {
   width: 35%;
   display: flex;
@@ -14,14 +14,51 @@
   justify-content: flex-start;
   align-items: flex-start;
   padding: 60px 80px;
-  background: #ffffff;
+
+  position: relative;
+  overflow: hidden;
+
+  background: transparent !important; /* 🔥 removed white */
+}
+
+/* 🔥 BACKGROUND IMAGE */
+.login-left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image: url('/assets/rodelsa.png');
+  background-size: cover;
+  background-position: center;
+
+  filter: blur(0px);
+  transform: scale(1.1);
+
+  z-index: 0;
+}
+
+/* 🔥 OVERLAY FOR READABILITY */
+.login-left::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(255, 255, 255, 0.85);
+
+  z-index: 1;
+}
+
+/* 🔥 KEEP CONTENT ABOVE */
+.login-left * {
+  position: relative;
+  z-index: 2;
 }
 
 /* 🔥 LOGO (ADJUSTED SPACING) */
 .logo {
   width: 100%;
   max-width: 280px;
-  margin-bottom: 20px; /* ✅ REDUCED (was 50px) */
+  margin-bottom: 20px;
   transition: transform 0.3s ease;
 }
 
@@ -35,11 +72,11 @@
   max-width: 400px;
 }
 
-/* 🔥 TITLE (PREMIUM LOOK + FIXED POSITION) */
+/* 🔥 TITLE */
 .login-box h2 {
   font-size: 34px;
   font-weight: 600;
-  margin-top: 0;        /* ✅ ADDED */
+  margin-top: 0;
   margin-bottom: 6px;
   color: #111;
   letter-spacing: 0.3px;
@@ -61,13 +98,13 @@ form {
 /* LABEL */
 label {
   font-size: 13px;
-  font-weight: 600; /* 🔥 bolder */
-  color: #7f1d1d;   /* 🔥 premium dark red */
+  font-weight: 600;
+  color: #7f1d1d;
   margin-bottom: 6px;
   letter-spacing: 0.3px;
 }
 
-/* 🔥 INPUT + SELECT (GLASS CLEAN STYLE) */
+/* INPUT + SELECT */
 input, select {
   padding: 14px 16px;
   margin-bottom: 16px;
@@ -81,14 +118,14 @@ input, select {
   transition: all 0.2s ease;
 }
 
-/* 🔥 FOCUS STATE */
+/* FOCUS */
 input:focus, select:focus {
   border-color: #8b0000;
   background: #ffffff;
   box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
 }
 
-/* 🔥 BUTTON (PREMIUM GRADIENT) */
+/* BUTTON */
 button {
   padding: 14px;
   margin-top: 5px;
@@ -142,7 +179,7 @@ button:hover {
   100% { transform: translateX(-15%); }
 }
 
-/* 🔥 PREMIUM OVERLAY (SOFTER + DEEPER) */
+/* OVERLAY */
 .login-right::after {
   content: '';
   position: absolute;
@@ -169,7 +206,7 @@ button:hover {
   padding: 60px;
 }
 
-/* 🔥 QUOTE (PREMIUM TYPOGRAPHY) */
+/* QUOTE */
 .overlay h3 {
   margin-top: -10px;
   font-size: 28px;
@@ -177,39 +214,38 @@ button:hover {
   font-weight: 500;
   max-width: 620px;
 
-  /* 🔥 PREMIUM FONT */
   font-family: 'Playfair Display', serif;
   font-style: italic;
 
-  /* 🔥 PREMIUM GOLD COLOR (NOT BASIC YELLOW) */
   color: #fbbf24;
 
-  /* ✨ DEPTH + GLOW */
   text-shadow: 
     0 2px 6px rgba(0,0,0,0.4),
     0 0 12px rgba(251, 191, 36, 0.3);
 
   letter-spacing: 0.4px;
 }
- .overlay h3::before,
+
+.overlay h3::before,
 .overlay h3::after {
   content: '"';
   font-size: 34px;
   color: rgba(255,255,255,0.3);
 }
+
 /* AUTHOR */
 .overlay p {
   margin-top: 18px;
   font-size: 12px;
   letter-spacing: 2px;
 
-  color: #fde68a; /* softer gold */
+  color: #fde68a;
   opacity: 0.9;
 
   font-weight: 500;
 }
 
-/* 🔥 PREMIUM TITLE */
+/* TITLE */
 .title {
   font-size: 36px;
   font-weight: 500;
@@ -219,19 +255,21 @@ button:hover {
   font-family: 'Playfair Display', serif;
 }
 
-/* highlight "Creatives" */
+/* highlight */
 .title span {
   color: #8b0000;
   font-weight: 600;
 }
+
+/* LOGO RIGHT */
 .overlay-logo {
-  width: 140px; /* 🔥 bigger */
+  width: 140px;
   margin-bottom: 20px;
 
   opacity: 0.9;
   filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
   transition: transform 0.3s ease;
-    transform: translateY(-20px);
+  transform: translateY(-20px);
 }
 
 .overlay-logo:hover {
