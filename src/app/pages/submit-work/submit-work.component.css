@@ -1,23 +1,52 @@
 .page {
   padding: 30px;
   background: #f5f6fa;
+
+  /* 🎬 PAGE REVEAL */
+  animation: pageReveal 0.7s cubic-bezier(.22,1,.36,1);
 }
 
+/* ============================= */
+/* 🎬 PAGE ANIMATION */
+/* ============================= */
+@keyframes pageReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+    filter: blur(10px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.01);
+    filter: blur(3px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* ============================= */
 /* MAIN LAYOUT */
+/* ============================= */
+
 .main-layout {
   display: flex;
   gap: 30px;
   align-items: flex-start;
-  height: calc(100vh - 80px); /* 🔥 FIX */
+  height: calc(100vh - 80px);
 }
 
 /* LEFT */
 .left-panel {
   width: 380px;
-  overflow-y: auto; /* optional smooth scroll */
+  overflow-y: auto;
 }
 
-/* RIGHT (🔥 FIXED SCROLL) */
+/* RIGHT */
 .right-panel {
   flex: 1;
   display: flex;
@@ -25,21 +54,29 @@
   gap: 20px;
 
   height: 100%;
-  overflow-y: auto; /* 🔥 MAIN FIX */
+  overflow-y: auto;
   padding-right: 10px;
 
-  scroll-behavior: smooth; /* ✨ smooth */
+  scroll-behavior: smooth;
 }
 
+/* ============================= */
 /* CARD */
+/* ============================= */
+
 .card {
   background: white;
   border-radius: 16px;
   padding: 25px;
   border: 1px solid #eee;
+
+  animation: fadeUp 0.5s ease;
 }
 
+/* ============================= */
 /* UPLOAD */
+/* ============================= */
+
 .upload-box {
   border: 2px dashed #d1d5db;
   border-radius: 12px;
@@ -49,7 +86,10 @@
   color: #777;
 }
 
+/* ============================= */
 /* INPUTS */
+/* ============================= */
+
 input, textarea {
   width: 100%;
   padding: 10px;
@@ -65,7 +105,10 @@ textarea {
   margin-bottom: 15px;
 }
 
+/* ============================= */
 /* BUTTON */
+/* ============================= */
+
 .btn-primary {
   width: 100%;
   background: #7b1113;
@@ -75,7 +118,10 @@ textarea {
   border-radius: 8px;
 }
 
+/* ============================= */
 /* FILE */
+/* ============================= */
+
 .file-card {
   background: #f3f4f6;
   padding: 8px;
@@ -83,7 +129,10 @@ textarea {
   margin-bottom: 5px;
 }
 
+/* ============================= */
 /* WORKFLOW SECTION */
+/* ============================= */
+
 .workflow-section {
   flex: 1;
   background: white;
@@ -93,7 +142,9 @@ textarea {
 
   display: flex;
   flex-direction: column;
-  min-height: 250px; /* 🔥 ensures visibility */
+  min-height: 250px;
+
+  animation: fadeUp 0.6s ease;
 }
 
 /* HEADER */
@@ -107,19 +158,30 @@ textarea {
 .section-content {
   flex: 1;
   display: flex;
-  flex-direction: column; /* 🔥 FIX (important) */
+  flex-direction: column;
   gap: 10px;
 }
 
-/* CARDS */
-.workflow-card {
-  background: #fafafa;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #eee;
-  width: 100%;
+/* ============================= */
+/* 🔥 FIXED WORKFLOW CARD */
+/* ============================= */
 
-  transition: 0.2s; /* ✨ smooth */
+.workflow-card {
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+
+  transition: all 0.2s ease;
+
+  /* 🎬 ENTRY ONLY */
+  animation: cardReveal 0.5s ease;
 }
 
 .workflow-card:hover {
@@ -127,29 +189,58 @@ textarea {
   box-shadow: 0 6px 15px rgba(0,0,0,0.08);
 }
 
-/* DONE */
+/* DONE STYLE */
 .workflow-card.done {
   border-left: 4px solid #22c55e;
+  background: #f9fafb;
 }
 
-/* EMPTY */
+/* TEXT */
+.workflow-card strong {
+  font-size: 14px;
+  color: #111;
+}
+
+/* 🔥 BASE BUTTON */
+.workflow-card button {
+  align-self: flex-start;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* ✅ GREEN - MARK AS DONE */
+.workflow-card .done-btn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+}
+
+.workflow-card .done-btn:hover {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+/* 🟡 YELLOW - REQUEST REVISION */
+.workflow-card .revise-btn {
+  background: linear-gradient(135deg, #facc15, #eab308);
+  color: #111;
+}
+
+.workflow-card .revise-btn:hover {
+  background: linear-gradient(135deg, #eab308, #ca8a04);
+}
+
 .empty {
   text-align: center;
   color: #999;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .main-layout {
-    flex-direction: column;
-  }
-
-  .left-panel {
-    width: 100%;
-  }
-}
-
+/* ============================= */
 /* CHAT */
+/* ============================= */
+
 .chat-box {
   margin-top: 10px;
   display: flex;
@@ -164,15 +255,10 @@ textarea {
   max-width: 80%;
 }
 
-/* CARD TOP */
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
+/* ============================= */
 /* STATUS */
+/* ============================= */
+
 .status {
   font-size: 11px;
   padding: 4px 10px;
@@ -190,14 +276,10 @@ textarea {
   color: #166534;
 }
 
-/* ACTIONS */
-.card-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
 
-/* DONE BUTTON */
 .done-btn {
   width: 100%;
   background: linear-gradient(135deg, #22c55e, #16a34a);
@@ -215,18 +297,6 @@ textarea {
   box-shadow: 0 6px 15px rgba(34,197,94,0.3);
 }
 
-/* COMMENT INPUT */
-.comment-input {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.comment-input input {
-  flex: 1;
-}
-
-/* SEND BUTTON */
 .send-btn {
   background: #7b1113;
   color: white;
@@ -240,24 +310,24 @@ textarea {
   background: #5f0d0f;
 }
 
-/* DRAG */
-.drag-preview {
-  padding: 12px 16px;
-  background: white;
-  border-radius: 10px;
-  font-weight: 500;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  border-left: 4px solid #7b1113;
+/* ============================= */
+/* COMMENT INPUT */
+/* ============================= */
+
+.comment-input {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
 }
 
-.drag-placeholder {
-  height: 60px;
-  background: #f3f4f6;
-  border-radius: 10px;
-  border: 2px dashed #ccc;
+.comment-input input {
+  flex: 1;
 }
 
+/* ============================= */
 /* REVISION */
+/* ============================= */
+
 .revise-btn {
   margin-top: 10px;
   background: #f59e0b;
@@ -275,37 +345,61 @@ textarea {
 .revision-box {
   margin-top: 10px;
 }
-.tasks-title {
-  font-size: 30px;
-  font-weight: 500;
-  font-style: italic;
-  letter-spacing: 0.5px;
-  color: #111;
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 5px;
-}
 
-.tasks-title span {
-  color: #8b0000;
-  font-weight: 600;
-}
-.container {
-  padding: 40px;
-  font-family: 'Poppins', sans-serif;
+/* ============================= */
+/* 🎬 MICRO ANIMATIONS */
+/* ============================= */
 
-  background: transparent !important;
-
-  animation: pageReveal 0.5s ease;
-}
-
-/* 🔥 ANIMATION */
-@keyframes pageReveal {
+@keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(25px) scale(0.98);
+    transform: translateY(20px) scale(0.98);
   }
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 900px) {
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .left-panel {
+    width: 100%;
+  }
+}
+/* 🔥 PREMIUM TITLE (MATCH PRODUCTION) */
+.tasks-title {
+  font-size: 30px;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.5px;
+
+  color: #111;
+  font-family: 'Playfair Display', serif;
+
+  margin-bottom: 10px;
+}
+
+/* RED ACCENT WORD */
+.tasks-title span {
+  color: #8b0000;
+  font-weight: 600;
 }

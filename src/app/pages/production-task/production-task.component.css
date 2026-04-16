@@ -1,4 +1,10 @@
-/* 🔥 BOARD LAYOUT (FIXED HORIZONTAL) */
+/* 🔥 CINEMATIC PAGE REVEAL (ONLY ON LOAD) */
+:host {
+  display: block;
+  animation: productionCinematic 0.75s cubic-bezier(.25,.8,.25,1);
+}
+
+/* 🔥 BOARD LAYOUT (UNCHANGED) */
 .board {
   display: flex;
   gap: 20px;
@@ -40,27 +46,18 @@
   padding: 3px 10px;
   border-radius: 999px;
   font-size: 11px;
-  font-weight: 500;
 }
 
-/* DOT COLORS */
+/* DOT */
 .dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
 }
 
-.pending {
-  background: #9ca3af;
-}
-
-.progress {
-  background: #f59e0b;
-}
-
-.complete {
-  background: #22c55e;
-}
+.pending { background: #9ca3af; }
+.progress { background: #f59e0b; }
+.complete { background: #22c55e; }
 
 /* TASK LIST */
 .task-list {
@@ -68,7 +65,6 @@
   background: #ffffff;
   padding: 10px;
   border-radius: 10px;
-
   border: 1px dashed #eee;
 }
 
@@ -91,8 +87,15 @@
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
-/* 🔥 DRAG SMOOTHNESS */
+/* ============================= */
+/* 🔥 ORIGINAL DRAG (UNCHANGED) */
+/* ============================= */
+
 .cdk-drag {
+  transition: transform 0.2s ease;
+}
+
+.cdk-drop-list-dragging .card {
   transition: transform 0.2s ease;
 }
 
@@ -105,11 +108,10 @@
   opacity: 0;
 }
 
-.cdk-drop-list-dragging .card {
-  transition: transform 0.2s ease;
-}
+/* ============================= */
+/* 📊 PERFORMANCE (UNCHANGED) */
+/* ============================= */
 
-/* 📊 PERFORMANCE SECTION */
 .performance-section {
   margin: 30px 20px;
   background: #ffffff;
@@ -132,13 +134,13 @@
   font-size: 14px;
 }
 
-/* CHART SIZE FIX */
+/* CHART (DO NOT TOUCH) */
 canvas {
   width: 100% !important;
   height: 300px !important;
 }
 
-/* STATUS CARDS */
+/* STATUS */
 .pending-card {
   background: #f9fafb;
   border-left: 4px solid #9ca3af;
@@ -154,7 +156,7 @@ canvas {
   border-left: 4px solid #22c55e;
 }
 
-/* ✅ CLEAN MINIMAL HEADER (UPDATED) */
+/* HEADER */
 .production-header {
   margin-bottom: 25px;
 }
@@ -162,133 +164,47 @@ canvas {
 .production-header h2 {
   font-size: 26px;
   font-weight: 600;
-  margin: 0;
-  color: #111;
 }
 
 .production-header p {
-  margin-top: 6px;
   font-size: 14px;
   color: #6b7280;
 }
-/* 🔥 GLOBAL PREMIUM TITLE */
+
+/* TITLE */
 .tasks-title {
   font-size: 40px;
-  font-weight: 500;
   font-style: italic;
-  letter-spacing: 0.5px;
-
-  color: #111;
   font-family: 'Playfair Display', serif;
-
-  margin-bottom: 5px;
 }
 
 .tasks-title span {
   color: #8b0000;
-  font-weight: 600;
 }
-.page-title {
-  margin-left: 20px;
-  margin-top: 10px;
-}
+
+/* CONTAINER */
 .container {
   padding: 40px;
   font-family: 'Poppins', sans-serif;
-
-  background: transparent !important;
-
-  animation: pageReveal 0.5s ease;
 }
 
-/* 🔥 ANIMATION */
-@keyframes pageReveal {
-  from {
+/* ============================= */
+/* 🎬 CINEMATIC KEYFRAME */
+/* ============================= */
+
+@keyframes productionCinematic {
+  0% {
     opacity: 0;
-    transform: translateY(25px) scale(0.98);
+    transform: translateY(40px) scale(0.96);
   }
-  to {
+
+  60% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.01);
+  }
+
+  100% {
     opacity: 1;
     transform: translateY(0) scale(1);
-  }
-}
-/* ============================= */
-/* 🎬 SUBMIT PAGE REVEAL ANIMATION */
-/* ============================= */
-
-/* LEFT PANEL (FORM) */
-.left-panel {
-  animation: fadeSlideLeft 0.6s ease;
-}
-
-/* RIGHT PANEL WRAPPER */
-.right-panel {
-  animation: fadeSlideRight 0.6s ease;
-}
-
-/* STAGGER EFFECT FOR EACH SECTION */
-.workflow-section {
-  opacity: 0;
-  animation: fadeUpStagger 0.6s ease forwards;
-}
-
-.workflow-section:nth-child(1) {
-  animation-delay: 0.2s;
-}
-
-.workflow-section:nth-child(2) {
-  animation-delay: 0.35s;
-}
-
-/* FORM CARD */
-.card {
-  animation: fadeUpSoft 0.5s ease;
-}
-
-/* ============================= */
-/* 🎬 KEYFRAMES */
-/* ============================= */
-
-@keyframes fadeSlideLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
-}
-
-@keyframes fadeSlideRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
-}
-
-@keyframes fadeUpSoft {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes fadeUpStagger {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }

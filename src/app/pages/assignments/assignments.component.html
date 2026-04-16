@@ -32,13 +32,16 @@
 
         <div class="task-item"
              *ngFor="let task of getTasksByDept(dept.key)">
+
+          <!-- 🔥 DELETE BUTTON -->
+         <span class="delete-btn" (click)="deleteTask(task.id)">✕</span>
+
           <div class="task-title">{{ task.title }}</div>
-
           <div class="task-desc">{{ task.description }}</div>
-
           <div class="task-date">
             Due {{ task.dueDate | date:'MMM dd, yyyy' }}
           </div>
+
         </div>
       </div>
 
@@ -50,9 +53,7 @@
       <!-- FORM -->
       <div *ngIf="showForm === dept.key" class="form">
         <input [(ngModel)]="newTask.title" placeholder="Task title">
-
         <input [(ngModel)]="newTask.description" placeholder="Task description">
-
         <input type="date" [(ngModel)]="newTask.dueDate">
 
         <button (click)="addTask()" class="submit">
