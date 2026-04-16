@@ -8,61 +8,94 @@
     <div class="login-box">
 
       <h2 class="title">
-  Hello <span>Creatives</span>!
-</h2>
-      <p class="sub">Sign in using your Liceo account</p>
+        Hello <span>Creatives</span>!
+      </h2>
 
-      <form (ngSubmit)="login()">
+      <p class="sub">
+        {{ isLoginMode ? 'Sign in using your Liceo account' : 'Create your account' }}
+      </p>
 
-        <label>Your Name</label>
-<input 
-  type="text"
-  [(ngModel)]="name"
-  name="name"
-  placeholder="Enter your name"
-  required
-/>
+      <form>
+
+        <!-- NAME -->
+        <div class="field" *ngIf="!isLoginMode">
+          <label>Your Name</label>
+          <input 
+            type="text"
+            [(ngModel)]="name"
+            name="name"
+            placeholder="Enter your name"
+          />
+        </div>
 
         <!-- EMAIL -->
-        <label>School Email</label>
-        <input 
-          type="email"
-          [(ngModel)]="email"
-          name="email"
-          placeholder="you@liceo.edu.ph"
-          required
-        />
+        <div class="field">
+          <label>School Email</label>
+          <input 
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            placeholder="you@liceo.edu.ph"
+          />
+        </div>
 
         <!-- PASSWORD -->
-        <label>Password</label>
-        <input 
-          type="password"
-          [(ngModel)]="password"
-          name="password"
-          placeholder="Enter your password"
-          required
-        />
+        <div class="field password-field">
+          <label>Password</label>
+
+          <div class="password-wrapper">
+
+            <input 
+              class="password-input"
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="Enter your password"
+            />
+
+            <span class="toggle-eye" (click)="togglePassword()">
+
+              <svg *ngIf="!showPassword" viewBox="0 0 24 24">
+                <path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+
+              <svg *ngIf="showPassword" viewBox="0 0 24 24">
+                <path d="M2 2l20 20"/>
+                <path d="M10.6 10.6a2 2 0 002.8 2.8"/>
+                <path d="M6.7 6.7C4.5 8.1 3 12 3 12s4 6 9 6c1.5 0 2.9-.4 4.1-1"/>
+              </svg>
+
+            </span>
+
+          </div>
+        </div>
 
         <!-- ROLE -->
-        <label>Role</label>
-        <select [(ngModel)]="role" name="role" title="Select your role" required>
-          <option value="" disabled selected>Select your role</option>
+        <div class="field" *ngIf="!isLoginMode">
+          <label>Role</label>
+          <select [(ngModel)]="role" name="role">
+            <option value="" disabled>Select your role</option>
+            <option value="creative_director">Creative Director</option>
+            <option value="production_lead">Production Lead</option>
+            <option value="videographer">Videographer</option>
+            <option value="photographer">Photographer</option>
+            <option value="graphic_designer">Graphic Designer</option>
+            <option value="video_editor">Video Editor</option>
+          </select>
+        </div>
 
-          <!-- 🔥 NEW ROLES -->
-          <option value="creative_director">Creative Director</option>
-          <option value="production_lead">Production Lead</option>
-
-          <!-- EXISTING ROLES -->
-          <option value="videographer">Videographer</option>
-          <option value="photographer">Photographer</option>
-          <option value="graphic_designer">Graphic Designer</option>
-          <option value="video_editor">Video Editor</option>
-        </select>
-
-        <!-- BUTTON -->
-        <button type="submit">Sign In</button>
+        <!-- ✅ BUTTON TEXT ONLY CHANGED -->
+        <button type="button" (click)="submit()">
+          {{ isLoginMode ? 'Log In' : 'Register' }}
+        </button>
 
       </form>
+
+      <!-- TOGGLE -->
+      <p class="toggle-text" (click)="toggleMode()">
+        {{ isLoginMode ? "Don't have an account? Register" : "Already have an account? Sign In" }}
+      </p>
 
     </div>
   </div>
@@ -74,15 +107,14 @@
 
     <div class="overlay">
 
-  <!-- ✅ ADD THIS -->
-  <img src="assets/liceo.png" class="overlay-logo" alt="Liceo school logo" />
+      <img src="assets/liceo.png" class="overlay-logo" alt="Liceo school logo" />
 
-  <h3>
-    “Where creativity meets purpose and passion becomes legacy.”
-  </h3>
-  <p>THE LICEO CREATIVES</p>
+      <h3>
+        “Where creativity meets purpose and passion becomes legacy.”
+      </h3>
+      <p>THE LICEO CREATIVES</p>
 
-</div>
+    </div>
 
   </div>
 

@@ -14,37 +14,39 @@ export class AssignmentsService {
 
   // 🔥 ALWAYS EMIT CURRENT DATA
   private emit() {
-    this.tasksSubject.next([...this.tasks]); // spread = FIX DELAY
+    this.tasksSubject.next([...this.tasks]);
   }
 
   getTasks(): Task[] {
     return this.tasks;
   }
 
- addTask(task: Task): void {
-  const newTask: Task = {
-    id: Date.now(),
-    title: task.title,
-    dueDate: task.dueDate,
-    department: task.department,
-    isDone: task.isDone ?? false,
-    status: 'pending' // ✅ FORCE STATUS ALWAYS
-  };
+  addTask(task: Task): void {
+    const newTask: Task = {
+      id: Date.now(),
+      title: task.title,
+      description: task.description || '', // ✅ FIX ADDED
+      dueDate: task.dueDate,
+      department: task.department,
+      isDone: task.isDone ?? false,
+      status: 'pending'
+    };
 
-  this.tasks.unshift(newTask);
-  this.emit();
-}
+    this.tasks.unshift(newTask);
+    this.emit();
+  }
 
   removeTask(id: number): void {
     this.tasks = this.tasks.filter(t => t.id !== id);
     this.emit();
   }
+
   updateTask(updatedTask: Task): void {
-  const index = this.tasks.findIndex(t => t.id === updatedTask.id);
-  if (index !== -1) {
-    this.tasks[index] = { ...updatedTask };
-    this.emit();
+    const index = this.tasks.findIndex(t => t.id === updatedTask.id);
+    if (index !== -1) {
+      this.tasks[index] = { ...updatedTask };
+      this.emit();
+    }
   }
-}
 
 }

@@ -1,8 +1,9 @@
 <div class="container">
 
   <h2 class="tasks-title">
-  Team <span>Assignments</span>
-</h2>
+    Team <span>Assignments</span>
+  </h2>
+
   <p class="subtitle">
     Manage and track tasks distributed across production departments.
   </p>
@@ -32,7 +33,12 @@
         <div class="task-item"
              *ngFor="let task of getTasksByDept(dept.key)">
           <div class="task-title">{{ task.title }}</div>
-          <div class="task-date">Due {{ task.dueDate }}</div>
+
+          <div class="task-desc">{{ task.description }}</div>
+
+          <div class="task-date">
+            Due {{ task.dueDate | date:'MMM dd, yyyy' }}
+          </div>
         </div>
       </div>
 
@@ -44,7 +50,10 @@
       <!-- FORM -->
       <div *ngIf="showForm === dept.key" class="form">
         <input [(ngModel)]="newTask.title" placeholder="Task title">
-        <input [(ngModel)]="newTask.dueDate" placeholder="Due date">
+
+        <input [(ngModel)]="newTask.description" placeholder="Task description">
+
+        <input type="date" [(ngModel)]="newTask.dueDate">
 
         <button (click)="addTask()" class="submit">
           Add Task

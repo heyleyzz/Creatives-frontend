@@ -27,6 +27,7 @@ export class AssignmentsComponent implements OnInit {
   newTask: Task = {
     id: 0,
     title: '',
+    description: '',
     dueDate: '',
     department: 'videographer',
     status: 'pending'
@@ -50,8 +51,9 @@ export class AssignmentsComponent implements OnInit {
     this.newTask = {
       id: 0,
       title: '',
+      description: '',
       dueDate: '',
-      department: dept, // ✅ FIXED COMMA
+      department: dept,
       status: 'pending'
     };
   }
@@ -60,16 +62,17 @@ export class AssignmentsComponent implements OnInit {
     if (!this.newTask.title || !this.newTask.dueDate) return;
 
     this.assignmentsService.addTask({
-  ...this.newTask,
-  isDone: false
-});
+      ...this.newTask,
+      isDone: false
+    });
 
     // RESET FORM
     this.newTask = {
       id: 0,
       title: '',
+      description: '',
       dueDate: '',
-      department: this.showForm!, // ✅ FIXED COMMA
+      department: this.showForm!,
       status: 'pending'
     };
 

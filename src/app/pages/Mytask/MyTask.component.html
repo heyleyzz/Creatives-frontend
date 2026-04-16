@@ -1,3 +1,11 @@
+<!-- 🔥 CINEMATIC WELCOME -->
+<div class="cinema-overlay" *ngIf="showWelcome">
+  <div class="cinema-content">
+    <h1 class="cinema-title">WELCOME</h1>
+    <p class="cinema-name">{{ userName }}</p>
+  </div>
+</div>
+
 <div class="container">
 
   <!-- HEADER -->
@@ -13,7 +21,7 @@
   <!-- EMPTY STATE -->
   <div class="empty-state" *ngIf="tasks.length === 0">
 
-    <div class="empty-card"> <!-- ✅ NEW WRAPPER -->
+    <div class="empty-card">
 
       <div class="empty-icon">
         <svg viewBox="0 0 24 24" fill="none">
@@ -62,6 +70,9 @@
 
         <div class="info">
           <h3>{{ task.title }}</h3>
+
+          <!-- ✅ ONLY ADDED LINE -->
+          <p>{{ task.description }}</p>
 
           <p class="date">
             <span class="date-icon">

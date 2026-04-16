@@ -15,14 +15,38 @@ export class MyTasksComponent implements OnInit {
 
   tasks: Task[] = [];
 
- constructor(private assignmentsService: AssignmentsService) {}
+  // 🔥 EDIT THIS
+  showWelcome: boolean = false;
+  userName: string = '';
 
-ngOnInit(): void {
-  this.assignmentsService.tasks$.subscribe(data => {
-    this.tasks = data;
-  });
-}
-toggleDone(task: Task): void {
-  console.log('Clicked task:', task);
-}
+  constructor(private assignmentsService: AssignmentsService) {}
+
+  ngOnInit(): void {
+
+    this.userName = localStorage.getItem('name') || '';
+
+    // 🔥 NEW LOGIC (SHOW ONLY AFTER LOGIN/REGISTER)
+    const shouldShow = localStorage.getItem('showWelcome');
+
+    if (shouldShow === 'true') {
+      this.showWelcome = true;
+
+      localStorage.removeItem('showWelcome');
+
+      setTimeout(() => {
+        this.showWelcome = false;
+      }, 2500);
+    }
+
+    // 🔥 GET ROLE FROM LOGIN
+    const userRole = localStorage.getItem('role');
+
+    this.assignmentsService.tasks$.subscribe(data => {
+      this.tasks = data.filter(task => task.department === userRole);
+    });
+  }
+
+  toggleDone(task: Task): void {
+    console.log('Clicked task:', task);
+  }
 }
