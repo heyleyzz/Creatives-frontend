@@ -1,15 +1,56 @@
-.container {
-  padding: 24px;
+/* 🔥 CINEMATIC PAGE REVEAL (MATCH SUBMIT) */
+:host {
+  display: block;
+  animation: assignmentsCinematic 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
-.title {
-  font-size: 22px;
+/* CONTAINER */
+.container {
+  padding: 40px;
+  font-family: 'Poppins', sans-serif;
+  background: transparent !important;
+
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+  filter: blur(10px);
+
+  animation: containerReveal 0.7s ease forwards;
+}
+
+/* TITLE */
+.tasks-title {
+  font-size: 34px;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  color: #111;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 5px;
+
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(6px);
+
+  animation: sectionReveal 0.6s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.tasks-title span {
+  color: #8b0000;
   font-weight: 600;
 }
 
+/* SUBTITLE */
 .subtitle {
   color: #6b7280;
   margin-bottom: 20px;
+
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(6px);
+
+  animation: sectionReveal 0.6s ease forwards;
+  animation-delay: 0.3s;
 }
 
 /* GRID */
@@ -18,14 +59,26 @@
   gap: 20px;
 }
 
-/* CARD */
+/* 🔥 CARD (STAGGER LIKE SUBMIT) */
 .card {
   flex: 1;
   background: #ffffff;
   border-radius: 14px;
   padding: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  filter: blur(8px);
+
+  animation: cardReveal 0.7s cubic-bezier(.22,1,.36,1) forwards;
 }
+
+/* STAGGER */
+.card:nth-child(1) { animation-delay: 0.4s; }
+.card:nth-child(2) { animation-delay: 0.55s; }
+.card:nth-child(3) { animation-delay: 0.7s; }
+.card:nth-child(4) { animation-delay: 0.85s; }
 
 /* HEADER */
 .card-header {
@@ -67,11 +120,30 @@
   margin-bottom: 10px;
 }
 
+/* 🔥 TASK ITEM */
 .task-item {
-  padding: 10px;
-  border-radius: 8px;
+  position: relative;
+  padding: 12px 35px 12px 12px;
+  border-radius: 10px;
   background: #f9fafb;
   margin-bottom: 10px;
+
+  transition: 0.2s ease;
+
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  filter: blur(6px);
+
+  animation: taskReveal 0.5s ease forwards;
+}
+
+/* STAGGER TASKS */
+.task-item:nth-child(1) { animation-delay: 0.9s; }
+.task-item:nth-child(2) { animation-delay: 1s; }
+.task-item:nth-child(3) { animation-delay: 1.1s; }
+
+.task-item:hover {
+  background: #f3f4f6;
 }
 
 .task-title {
@@ -79,9 +151,46 @@
   font-weight: 500;
 }
 
+.task-desc {
+  font-size: 12px;
+  color: #4b5563;
+  margin-top: 2px;
+}
+
 .task-date {
   font-size: 11px;
   color: #6b7280;
+}
+
+/* DELETE BUTTON */
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  color: #9ca3af;
+  border-radius: 50%;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  background: transparent;
+}
+
+.delete-btn:hover {
+  color: #7f1d1d;
+  background: rgba(127, 29, 29, 0.08);
+  transform: scale(1.15);
 }
 
 /* BUTTON */
@@ -116,42 +225,59 @@
   border-radius: 8px;
   cursor: pointer;
 }
-.tasks-title {
-  font-size: 34px;
-  font-weight: 500;
-  font-style: italic;
-  letter-spacing: 0.5px;
-  color: #111;
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 5px;
-}
 
-.tasks-title span {
-  color: #8b0000;
-  font-weight: 600;
-}
-.container {
-  padding: 40px;
-  font-family: 'Poppins', sans-serif;
+/* ============================= */
+/* 🎬 KEYFRAMES */
+/* ============================= */
 
-  background: transparent !important;
-
-  animation: pageReveal 0.5s ease;
-}
-
-/* 🔥 ANIMATION */
-@keyframes pageReveal {
-  from {
+@keyframes assignmentsCinematic {
+  0% {
     opacity: 0;
-    transform: translateY(25px) scale(0.98);
+    transform: translateY(40px) scale(0.96);
+    filter: blur(12px);
   }
+
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.01);
+    filter: blur(4px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes containerReveal {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+    filter: blur(0);
   }
 }
-.task-desc {
-  font-size: 12px;
-  color: #4b5563;
-  margin-top: 2px;
+
+@keyframes sectionReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes cardReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes taskReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
 }

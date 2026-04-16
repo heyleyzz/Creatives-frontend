@@ -162,7 +162,11 @@ export class SubmitWorkComponent implements OnInit {
   }
 
   // ✅ MARK AS DONE
-  markAsDone(item: Task) {
-    this.tasks = this.tasks.filter(t => t !== item);
-  }
+ markAsDone(item: Task) {
+  // 1. remove from service (main data source)
+  this.taskService.deleteTask(item);
+
+  // 2. reload tasks (updates UI automatically)
+  this.tasks = this.taskService.getTasks();
+}
 }

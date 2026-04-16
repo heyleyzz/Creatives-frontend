@@ -18,7 +18,7 @@ export class SubmitWorkService {
 
   updateTask(task: Task) {
     const index = this.tasks.findIndex(t => t === task);
-    if (index !== -1) {
+    if (index !== -1) { 
       this.tasks[index] = task;
     }
   }
