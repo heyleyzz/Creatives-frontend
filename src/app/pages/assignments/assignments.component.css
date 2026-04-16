@@ -130,3 +130,23 @@
   color: #8b0000;
   font-weight: 600;
 }
+.container {
+  padding: 40px;
+  font-family: 'Poppins', sans-serif;
+
+  background: transparent !important;
+
+  animation: pageReveal 0.5s ease;
+}
+
+/* 🔥 ANIMATION */
+@keyframes pageReveal {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

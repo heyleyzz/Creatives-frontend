@@ -13,29 +13,33 @@
   <!-- EMPTY STATE -->
   <div class="empty-state" *ngIf="tasks.length === 0">
 
-    <div class="empty-icon">
-      <svg viewBox="0 0 24 24" fill="none">
-        <rect x="5" y="3" width="14" height="18" rx="3"
-          stroke="#8b0000" stroke-width="1.6"/>
+    <div class="empty-card"> <!-- ✅ NEW WRAPPER -->
 
-        <circle cx="9" cy="9" r="1.2" fill="#8b0000"/>
-        <line x1="11" y1="9" x2="16" y2="9"
-          stroke="#8b0000" stroke-width="1.6" stroke-linecap="round"/>
+      <div class="empty-icon">
+        <svg viewBox="0 0 24 24" fill="none">
+          <rect x="5" y="3" width="14" height="18" rx="3"
+            stroke="#8b0000" stroke-width="1.6"/>
 
-        <circle cx="9" cy="13" r="1.2" fill="#8b0000"/>
-        <line x1="11" y1="13" x2="16" y2="13"
-          stroke="#8b0000" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="9" cy="9" r="1.2" fill="#8b0000"/>
+          <line x1="11" y1="9" x2="16" y2="9"
+            stroke="#8b0000" stroke-width="1.6" stroke-linecap="round"/>
 
-        <circle cx="9" cy="17" r="1.2" fill="#8b0000"/>
-        <line x1="11" y1="17" x2="16" y2="17"
-          stroke="#8b0000" stroke-width="1.6" stroke-linecap="round"/>
-      </svg>
+          <circle cx="9" cy="13" r="1.2" fill="#8b0000"/>
+          <line x1="11" y1="13" x2="16" y2="13"
+            stroke="#8b0000" stroke-width="1.6" stroke-linecap="round"/>
+
+          <circle cx="9" cy="17" r="1.2" fill="#8b0000"/>
+          <line x1="11" y1="17" x2="16" y2="17"
+            stroke="#8b0000" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <h3 class="empty-title">No tasks yet</h3>
+      <p class="empty-sub">
+        You're all set! Add tasks to start organizing your workflow.
+      </p>
+
     </div>
-
-    <h3 class="empty-title">Your tasks will appear here</h3>
-    <p class="empty-sub">
-      Stay organized and productive by managing your tasks.
-    </p>
 
   </div>
 
