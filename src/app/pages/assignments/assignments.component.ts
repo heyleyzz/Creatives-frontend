@@ -82,4 +82,9 @@ export class AssignmentsComponent implements OnInit {
 
     this.showForm = null;
   }
+
+  deleteTask(id: number): void {
+  this.assignmentService.removeTask(id);
+}
+
 }

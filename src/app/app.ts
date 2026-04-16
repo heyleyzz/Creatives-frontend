@@ -1,53 +1,20 @@
-import { Component } from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; // ✅ FIX
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { ApiService } from './services/api.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SidebarComponent], // ✅ FIX
+  imports: [CommonModule, RouterOutlet, SidebarComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-constructor(public auth: AuthService, private api: ApiService) {}
+  constructor(public auth: AuthService) {}
 
-  username = ''
-  password = ''
-  loginError = ''
-  profile: { user: string; role: string } | null = null
-  items: string[] = []
-  newItem = ''
-
-  ngOnInit() {
-    if (this.auth.isLoggedIn()) this.loadData()
-  }
-
-  login() {
-    this.auth.login(this.username, this.password).subscribe({
-      next: () => this.loadData(),
-      error: () => this.loginError = 'Invalid credentials'
-    })
-  }
-
-  loadData() {
-    this.api.getProfile().subscribe(data => this.profile = data)
-    this.api.getItems().subscribe(data => this.items = data.items)
-  }
-
-  addItem() {
-    this.api.createItem(this.newItem).subscribe({
-      next: () => {
-        this.items.push(this.newItem)
-        this.newItem = ''
-      },
-      error: (err) => console.error(err)
-    })
-  }
+  ngOnInit() {}
 
 }
