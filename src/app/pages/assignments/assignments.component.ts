@@ -70,6 +70,7 @@ export class AssignmentsComponent implements OnInit {
       isDone: false
     });
 
+    // RESET FORM
     this.newTask = {
       id: 0,
       title: '',
@@ -80,10 +81,5 @@ export class AssignmentsComponent implements OnInit {
     };
 
     this.showForm = null;
-  }
-
-  // 🔥 ADD THIS ONLY
-  deleteTask(id: number): void {
-    this.assignmentsService.removeTask(id);
   }
 }

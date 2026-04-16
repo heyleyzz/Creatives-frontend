@@ -36,8 +36,8 @@ export class ProductionTaskComponent implements OnInit {
       }));
 
       this.pending = [...fixedTasks.filter(t => t.status === 'pending')];
-      this.inProgress = [...fixedTasks.filter(t => t.status === 'in-progress')];
-      this.complete = [...fixedTasks.filter(t => t.status === 'complete')];
+      this.inProgress = [...fixedTasks.filter(t => t.status === 'in_progress')];
+      this.complete = [...fixedTasks.filter(t => t.status === 'completed')];
 
       console.log('DEBUG TASKS:', fixedTasks);
 
@@ -96,12 +96,12 @@ export class ProductionTaskComponent implements OnInit {
     }
 
     if (event.container.id === 'inProgressList') {
-      movedTask.status = 'in-progress';
+      movedTask.status = 'in_progress';
       movedTask.isDone = false;
     }
 
     if (event.container.id === 'completeList') {
-      movedTask.status = 'complete';
+      movedTask.status = 'completed';
       movedTask.isDone = true;
     }
 

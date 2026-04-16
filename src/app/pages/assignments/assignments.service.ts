@@ -43,7 +43,7 @@ export class AssignmentsService {
   }
 
   updateTask(updatedTask: Task): void {
-    this.http.put(`${this.API_URL}/${updatedTask.id}`, updatedTask).subscribe(() => {
+    this.http.patch(`${this.API_URL}/${updatedTask.id}/status`, { status: updatedTask.status }).subscribe(() => {
       const index = this.tasks.findIndex(t => t.id === updatedTask.id);
       if (index !== -1) {
         this.tasks[index] = { ...updatedTask };
