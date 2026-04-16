@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { MyTask } from './MyTask.model';
+import { Task } from '../assignments/assignment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +9,14 @@ import { MyTask } from './MyTask.model';
 export class MyTasksService {
 
   private tasks: MyTask[] = [];
+  tasks$: any;
+
+  constructor(private http: HttpClient) { }
 
   getTasks(): MyTask[] {
+    this.http.get<MyTask[]>('http://localhost:3000/api/tasks').subscribe((tasks) => {
+      this.tasks = tasks;
+    });
     return this.tasks;
   }
 
@@ -19,7 +27,9 @@ export class MyTasksService {
       isDone: false
     };
 
-    this.tasks.unshift(newTask);
+  this.http.post<MyTask>('http://localhost:3000/api/tasks', newTask).subscribe((createdTask: MyTask) => {
+    this.tasks.push(createdTask);
+  });
   }
 
   toggleTask(id: number): void {

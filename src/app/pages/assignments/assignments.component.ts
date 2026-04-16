@@ -33,12 +33,14 @@ export class AssignmentsComponent implements OnInit {
     status: 'pending'
   };
 
-  constructor(private assignmentsService: AssignmentsService) {}
+  constructor(private assignmentService: AssignmentsService) {}
 
   ngOnInit(): void {
-    this.assignmentsService.tasks$.subscribe(tasks => {
+    this.assignmentService.tasks$.subscribe((tasks: any) => {
       this.tasks = [...tasks];
     });
+
+    this.assignmentService.getTasks();
   }
 
   getTasksByDept(dept: string): Task[] {
@@ -59,9 +61,11 @@ export class AssignmentsComponent implements OnInit {
   }
 
   addTask(): void {
-    if (!this.newTask.title || !this.newTask.dueDate) return;
+    if (!this.newTask.title || !this.newTask.description || !this.newTask.dueDate || !this.newTask.department) return;
 
-    this.assignmentsService.addTask({
+    //console.log('Sending task:', this.newTask); // ← add this temporarily
+
+    this.assignmentService.addTask({
       ...this.newTask,
       isDone: false
     });

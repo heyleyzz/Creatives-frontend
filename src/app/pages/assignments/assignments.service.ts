@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Task } from './assignment.model';
 
@@ -7,46 +8,48 @@ import { Task } from './assignment.model';
 })
 export class AssignmentsService {
 
+  private http = inject(HttpClient);
   private tasks: Task[] = [];
+  private API_URL = 'http://localhost:3000/api/tasks';
 
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   tasks$ = this.tasksSubject.asObservable();
 
-  // 🔥 ALWAYS EMIT CURRENT DATA
+  // 🔥 A LWAYS EMIT CURRENT DATA
   private emit() {
     this.tasksSubject.next([...this.tasks]);
   }
 
-  getTasks(): Task[] {
-    return this.tasks;
+  getTasks(): void {
+    this.http.get<Task[]>(this.API_URL).subscribe((tasks) => {
+      this.tasks = tasks;
+      this.emit();
+    });
   }
 
-  addTask(task: Task): void {
-    const newTask: Task = {
-      id: Date.now(),
-      title: task.title,
-      description: task.description || '', // ✅ FIX ADDED
-      dueDate: task.dueDate,
-      department: task.department,
-      isDone: task.isDone ?? false,
-      status: 'pending'
-    };
-
-    this.tasks.unshift(newTask);
-    this.emit();
+  addTask(task: Omit<Task, 'id'>): void {
+    console.log('Payload being sent:', JSON.stringify(task)); // ← add this
+    this.http.post<Task>(this.API_URL, task).subscribe((created) => {
+      this.tasks.push(created);
+      this.emit();
+    });
   }
 
   removeTask(id: number): void {
-    this.tasks = this.tasks.filter(t => t.id !== id);
-    this.emit();
+    this.http.delete(`${this.API_URL}/${id}`).subscribe(() => {
+      this.tasks = this.tasks.filter(t => t.id !== id);
+      this.emit();
+    });
   }
 
   updateTask(updatedTask: Task): void {
-    const index = this.tasks.findIndex(t => t.id === updatedTask.id);
-    if (index !== -1) {
-      this.tasks[index] = { ...updatedTask };
-      this.emit();
-    }
+    this.http.put(`${this.API_URL}/${updatedTask.id}`, updatedTask).subscribe(() => {
+      const index = this.tasks.findIndex(t => t.id === updatedTask.id);
+      if (index !== -1) {
+        this.tasks[index] = { ...updatedTask };
+        this.emit();
+      }
+    });
   }
 
 }
