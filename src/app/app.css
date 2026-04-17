@@ -6,13 +6,19 @@
 
 /* MAIN CONTENT AREA */
 .main-content {
-  margin-left: 280px; /* same width as sidebar */
+  margin-left: 280px;
 
   flex: 1;
   height: 100vh;
 
-  overflow-y: auto; /* only content scrolls */
-  padding: 30px;
+  overflow-y: auto;
+
+  /* 🔥 CENTER EVERYTHING PROPERLY */
+  display: flex;
+  justify-content: center;   /* horizontal center */
+  align-items: flex-start;   /* top aligned */
+
+  padding: 40px 20px;
 
   background: #f8f8f8;
 }

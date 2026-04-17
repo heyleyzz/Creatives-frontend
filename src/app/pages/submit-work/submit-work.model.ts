@@ -1,23 +1,9 @@
-export interface Comment {
-  text: string;
-  createdAt?: Date;
-}
-
-export interface Task {
+export interface Submission {
   id?: number;
-
-  title: string;
-  description?: string;
-
-  files: string[]; // ✅ DATABASE READY (URLs)
-
-  comments: Comment[];
-
-  status: 'review' | 'post';
-
-  isRevising?: boolean;
-  newComment?: string;
-
-  createdAt?: Date;
-  updatedAt?: Date;
+  task_id: number;
+  user_id: number;
+  status: 'review' | 'approved' | 'posted';
+  drive_link?: string;
+  notes?: string;
+  created_at?: string;
 }

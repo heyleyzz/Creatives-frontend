@@ -1,8 +1,5 @@
 <div class="page">
-
-  <h2 class="tasks-title">
-  Upload & <span>Submit Work</span>
-</h2>
+  <h2 class="tasks-title">Upload & <span>Submit Work</span></h2>
 
   <div class="main-layout">
 
@@ -10,48 +7,27 @@
     <div class="left-panel">
       <div class="card submit-card">
 
-        <!-- UPLOAD -->
-        <div 
-          class="upload-box"
-          (click)="fileInput.click()"
-          (drop)="onFileDrop($event)"
-          (dragover)="onDragOver($event)"
-        >
-          <p>Drag & Drop files here</p>
-          <span>or click to browse</span>
-
-          <input 
-            type="file"
-            #fileInput
-            hidden
-            multiple
-            (change)="onFileSelected($event)"
-          >
+        <!-- TASK SELECTOR -->
+        <div class="field">
+          <label>Select Task</label>
+          <select [(ngModel)]="selectedTaskId">
+            <option [value]="null" disabled>Choose a task</option>
+            <option *ngFor="let task of tasks" [value]="task.id">
+              {{ task.title }} ({{ task.department }})
+            </option>
+          </select>
         </div>
 
-        <!-- FILE LIST -->
-        <div class="file-preview" *ngIf="files.length > 0">
-          <div class="file-card" *ngFor="let file of files">
-            {{ file.name }}
-          </div>
-        </div>
-
-        <!-- ✅ GOOGLE DRIVE (ADDED ONLY THIS) -->
+        <!-- GOOGLE DRIVE LINK -->
         <div class="field">
           <label>Google Drive Link</label>
           <input [(ngModel)]="driveLink" placeholder="Paste Google Drive link here">
         </div>
 
-        <!-- TITLE -->
+        <!-- NOTES -->
         <div class="field">
-          <label>Project Title</label>
-          <input [(ngModel)]="title">
-        </div>
-
-        <!-- DESCRIPTION -->
-        <div class="field">
-          <label>Description</label>
-          <textarea [(ngModel)]="description"></textarea>
+          <label>Notes</label>
+          <textarea [(ngModel)]="notes" placeholder="Any notes for the reviewer..."></textarea>
         </div>
 
         <button type="button" class="btn-primary full" (click)="submitWork()">
@@ -65,137 +41,41 @@
     <div class="right-panel">
 
       <!-- REVIEW -->
-      <div 
-        class="workflow-section"
-        cdkDropList
-        #reviewListRef="cdkDropList"
-        [cdkDropListData]="reviewList"
-        [cdkDropListConnectedTo]="[postListRef]"
-        (cdkDropListDropped)="drop($event)"
-      >
-
-        <div class="section-header">
-          <h3>Ready for Review</h3>
-        </div>
-
+      <div class="workflow-section">
+        <div class="section-header"><h3>Ready for Review</h3></div>
         <div class="section-content">
-
-          <div class="workflow-card" *ngFor="let item of reviewList" cdkDrag>
-
-            <!-- 🔥 DRAG PREVIEW (RESTORED) -->
-            <ng-template cdkDragPreview>
-              <div class="drag-preview">
-                {{ item.title }}
-              </div>
-            </ng-template>
-
-            <ng-template cdkDragPlaceholder>
-              <div class="drag-placeholder"></div>
-            </ng-template>
-
-            <!-- HEADER -->
+          <div class="workflow-card" *ngFor="let item of reviewList">
             <div class="card-top">
-              <strong>{{ item.title }}</strong>
+              <strong>Task #{{ item.task_id }}</strong>
               <span class="status review">Needs Review</span>
             </div>
-
-            <!-- FILES -->
-            <div class="file-list" *ngIf="item.files.length > 0">
-              <div 
-                class="file-item"
-                *ngFor="let file of item.files"
-                (click)="previewFile(file)"
-              >
-
-                <!-- ✅ DRIVE LINK -->
-                <a *ngIf="file.startsWith('http')" [href]="file" target="_blank">
-                  🔗 Open Drive File
-                </a>
-
-                <!-- NORMAL FILE -->
-                <span *ngIf="!file.startsWith('http')">
-                  {{ file }}
-                </span>
-
-              </div>
+            <div class="card-actions">
+              <button class="done-btn" (click)="updateStatus(item.id!, 'approved')">
+                Approve
+              </button>
             </div>
-
-            <!-- PREVIEW -->
-            <div class="file-preview-viewer" *ngIf="fileUrl">
-              <iframe [src]="fileUrl" width="100%" height="300px"></iframe>
-            </div>
-
-            <!-- COMMENTS -->
-            <div class="chat-box">
-              <div class="chat-bubble" *ngFor="let c of item.comments">
-                {{ c.text }}
-              </div>
-            </div>
-
-            <!-- COMMENT INPUT -->
-            <div class="comment-input">
-              <input [(ngModel)]="item.newComment" placeholder="Add comment...">
-              <button class="send-btn" (click)="addComment(item)">Send</button>
-            </div>
-
-            <!-- REVISION -->
-            <button class="revise-btn" (click)="enableRevision(item)">
-              Request Revision
-            </button>
-
-            <div *ngIf="item.isRevising" class="revision-box">
-              <input type="file" (change)="onRevisionUpload($event, item)">
-            </div>
-
           </div>
-
         </div>
       </div>
 
-      <!-- POST -->
-      <div 
-        class="workflow-section"
-        cdkDropList
-        #postListRef="cdkDropList"
-        [cdkDropListData]="postList"
-        [cdkDropListConnectedTo]="[reviewListRef]"
-        (cdkDropListDropped)="drop($event)"
-      >
-
-        <div class="section-header">
-          <h3>Ready to Post</h3>
-        </div>
-
+      <!-- APPROVED -->
+      <div class="workflow-section">
+        <div class="section-header"><h3>Ready to Post</h3></div>
         <div class="section-content">
-
-          <div class="workflow-card done" *ngFor="let item of postList" cdkDrag>
-
-            <!-- 🔥 KEEP DESIGN -->
-            <ng-template cdkDragPreview>
-              <div class="drag-preview">
-                {{ item.title }}
-              </div>
-            </ng-template>
-
+          <div class="workflow-card done" *ngFor="let item of approvedList">
             <div class="card-top">
-              <strong>{{ item.title }}</strong>
+              <strong>Task #{{ item.task_id }}</strong>
               <span class="status done">Approved</span>
             </div>
-
             <div class="card-actions">
-              <button class="done-btn" (click)="markAsDone(item)">
+              <button class="done-btn" (click)="markAsDone(item.id!)">
                 Mark as Done
               </button>
             </div>
-
           </div>
-
         </div>
-
       </div>
 
     </div>
-
   </div>
-
 </div>
