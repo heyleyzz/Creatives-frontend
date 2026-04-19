@@ -3,3 +3,33 @@ html, body {
   margin: 0;
   padding: 0;
 }
+/* 🔥 LAYOUT FIX */
+
+.layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+}
+
+/* 🚫 REMOVE SHRINKING CONTAINER */
+.app-bg,
+.page {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+/* safety */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}

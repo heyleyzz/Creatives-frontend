@@ -6,8 +6,8 @@
 
 /* MAIN CONTENT AREA */
 .main-content {
-  margin-left: 280px;
-
+ 
+  width: 100%;
   flex: 1;
   height: 100vh;
 
@@ -15,7 +15,7 @@
 
   /* 🔥 CENTER EVERYTHING PROPERLY */
   display: flex;
-  justify-content: center;   /* horizontal center */
+  justify-content: stretch;   /* horizontal center */
   align-items: flex-start;   /* top aligned */
 
   padding: 40px 20px;

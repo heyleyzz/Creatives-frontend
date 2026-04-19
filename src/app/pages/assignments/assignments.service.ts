@@ -31,6 +31,7 @@ export class AssignmentsService {
     console.log('Payload being sent:', JSON.stringify(task)); // ← add this
     this.http.post<Task>(this.API_URL, task).subscribe((created) => {
       this.tasks.push(created);
+          this.getTasks(); // ← reload from DB to get real IDs
       this.emit();
     });
   }

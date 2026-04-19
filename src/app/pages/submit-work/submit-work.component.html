@@ -7,18 +7,17 @@
     <div class="left-panel">
       <div class="card submit-card">
 
-        <!-- TASK SELECTOR -->
         <div class="field">
-          <label>Select Task</label>
-          <select [(ngModel)]="selectedTaskId">
-            <option [value]="null" disabled>Choose a task</option>
-            <option *ngFor="let task of tasks" [value]="task.id">
-              {{ task.title }} ({{ task.department }})
-            </option>
-          </select>
-        </div>
+      <label>Select Task</label>
+      <select [(ngModel)]="selectedTaskId">
+        <option [ngValue]="null" disabled>Choose a task</option>
+        <option *ngFor="let task of tasks" [ngValue]="task.id">
+          {{ task.title }} ({{ task.department }})
+        </option>
+      </select>
+    </div>
 
-        <!-- GOOGLE DRIVE LINK -->
+        <!-- GOOGLE DRIVE ONLY -->
         <div class="field">
           <label>Google Drive Link</label>
           <input [(ngModel)]="driveLink" placeholder="Paste Google Drive link here">
@@ -40,38 +39,72 @@
     <!-- RIGHT PANEL -->
     <div class="right-panel">
 
-      <!-- REVIEW -->
-      <div class="workflow-section">
-        <div class="section-header"><h3>Ready for Review</h3></div>
+      <!-- READY FOR REVIEW -->
+      <div class="workflow-section"
+           (dragover)="$event.preventDefault()"
+           (drop)="onDrop($event, 'review')">
+
+        <div class="section-header">
+          <h3>Ready for Review</h3>
+        </div>
+
         <div class="section-content">
-          <div class="workflow-card" *ngFor="let item of reviewList">
+          <div class="workflow-card"
+               *ngFor="let item of reviewList"
+               draggable="true"
+               (dragstart)="onDragStart($event, item)">
+
             <div class="card-top">
-              <strong>Task #{{ item.task_id }}</strong>
+              <strong>Submission #{{ item.id }}</strong>
               <span class="status review">Needs Review</span>
             </div>
+
+            <div class="card-body">
+              <a [href]="item.drive_link" target="_blank">View File</a>
+            </div>
+
             <div class="card-actions">
-              <button class="done-btn" (click)="updateStatus(item.id!, 'approved')">
+              <button class="done-btn"
+                      (click)="updateStatus(item.id!, 'approved')">
                 Approve
               </button>
             </div>
+
           </div>
         </div>
       </div>
 
-      <!-- APPROVED -->
-      <div class="workflow-section">
-        <div class="section-header"><h3>Ready to Post</h3></div>
+      <!-- READY TO POST -->
+      <div class="workflow-section"
+           (dragover)="$event.preventDefault()"
+           (drop)="onDrop($event, 'approved')">
+
+        <div class="section-header">
+          <h3>Ready to Post</h3>
+        </div>
+
         <div class="section-content">
-          <div class="workflow-card done" *ngFor="let item of approvedList">
+          <div class="workflow-card done"
+               *ngFor="let item of approvedList"
+               draggable="true"
+               (dragstart)="onDragStart($event, item)">
+
             <div class="card-top">
-              <strong>Task #{{ item.task_id }}</strong>
+              <strong>Submission #{{ item.id }}</strong>
               <span class="status done">Approved</span>
             </div>
+
+            <div class="card-body">
+              <a [href]="item.drive_link" target="_blank">View File</a>
+            </div>
+
             <div class="card-actions">
-              <button class="done-btn" (click)="markAsDone(item.id!)">
+              <button class="done-btn"
+                      (click)="markAsDone(item.id!)">
                 Mark as Done
               </button>
             </div>
+
           </div>
         </div>
       </div>
